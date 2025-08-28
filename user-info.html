@@ -10,13 +10,16 @@
     <div class="container">
         <header>
             <h1>User Information</h1>
-            <p>Please provide your Last Name and Unit below to track your route selections</p>
+            <p>Please provide your Last Name and Unit to continue</p>
+            <div class="logout-section">
+                <button onclick="logout()" class="btn-secondary">Logout</button>
+            </div>
         </header>
 
         <main>
             <div class="user-info-container">
+                <h2>Enter Your Details</h2>
                 <form id="userInfoForm">
-                    <h2>Please provide your Last Name and Unit below:</h2>
                     <div class="form-group">
                         <label for="lastName">Last Name:</label>
                         <input type="text" id="lastName" name="lastName" required>
@@ -46,6 +49,9 @@
             </div>
         </main>
 
+        <footer>
+            <p>&copy; 2025 Taunton Scouting for Food Drive</p>
+        </footer>
     </div>
 
     <script src="auth.js"></script>
