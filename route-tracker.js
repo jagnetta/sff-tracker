@@ -92,6 +92,16 @@ class RouteTracker {
         };
     }
     
+    // Remove a single route assignment
+    removeRouteAssignment(routeId) {
+        if (this.assignments[routeId]) {
+            delete this.assignments[routeId];
+            this.saveAssignments();
+            return true;
+        }
+        return false;
+    }
+    
     // Clear all assignments (admin function)
     clearAllAssignments() {
         this.assignments = {};

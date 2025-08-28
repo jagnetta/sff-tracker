@@ -78,6 +78,12 @@ function showExistingAssignments(routeIds, userInfo) {
             <p><strong>Total Routes:</strong> ${routeIds.length}</p>
             <p><strong>Total Flyers:</strong> ${totalFlyers.toLocaleString()}</p>
         </div>
+        <div class="user-assignment-info">
+            <h3>Important Dates & Instructions</h3>
+            <p><strong>Door Hanger Distribution:</strong> Sat., Oct. 25th from 9 AM to 1 PM</p>
+            <p><strong>Food Pickup:</strong> Sat., Nov. 1st from 9 AM to 1 PM</p>
+            <p><strong>Food Drop Off Location:</strong> The Matthew Mission Food Pantry at 76 Church Green, Taunton, MA 02780</p>
+        </div>
         <div class="assignments-by-region">
     `;
     
@@ -89,9 +95,12 @@ function showExistingAssignments(routeIds, userInfo) {
         routesByRegion[region].forEach(route => {
             assignmentsHTML += `
                 <li class="assigned-route">
-                    <strong>Route ${route.routeId} - ${route.name}</strong>
-                    <span class="route-flyers">${route.flyerCount} flyers</span>
-                    <div class="route-desc">${route.description}</div>
+                    <div class="route-info">
+                        <strong>Route ${route.routeId} - ${route.name}</strong>
+                        <span class="route-flyers">${route.flyerCount} flyers</span>
+                        <div class="route-desc">${route.description}</div>
+                    </div>
+                    <button onclick="removeRouteFromAssignment('${route.routeId}')" class="btn-danger remove-route-btn">Remove</button>
                 </li>
             `;
         });
@@ -104,6 +113,31 @@ function showExistingAssignments(routeIds, userInfo) {
     
     existingDiv.style.display = 'block';
     regionSelector.style.display = 'none';
+}
+
+function removeRouteFromAssignment(routeId) {
+    if (confirm('Are you sure you want to remove this route from your assignments?')) {
+        const removed = routeTracker.removeRouteAssignment(routeId);
+        if (removed) {
+            // Refresh the assignments display
+            refreshAssignmentsDisplay();
+        } else {
+            alert('Error removing route assignment.');
+        }
+    }
+}
+
+function refreshAssignmentsDisplay() {
+    const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+    const userRoutes = routeTracker.getUserAssignments(userInfo.lastName, userInfo.unit);
+    
+    if (userRoutes.length === 0) {
+        // No routes left, show region selector
+        showRegionSelector();
+    } else {
+        // Still have routes, refresh the display
+        showExistingAssignments(userRoutes, userInfo);
+    }
 }
 
 function showRegionSelector() {
@@ -212,6 +246,13 @@ function printUserAssignments() {
                 <h3>Summary</h3>
                 <p><strong>Total Routes:</strong> ${userRoutes.length}</p>
                 <p><strong>Total Flyers:</strong> ${totalFlyers.toLocaleString()}</p>
+            </div>
+            
+            <div class="summary">
+                <h3>Important Dates & Instructions</h3>
+                <p><strong>Door Hanger Distribution:</strong> Sat., Oct. 25th from 9 AM to 1 PM</p>
+                <p><strong>Food Pickup:</strong> Sat., Nov. 1st from 9 AM to 1 PM</p>
+                <p><strong>Food Drop Off Location:</strong> The Matthew Mission Food Pantry at 76 Church Green, Taunton, MA 02780</p>
             </div>
     `;
     

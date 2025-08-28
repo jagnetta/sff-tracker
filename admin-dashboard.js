@@ -142,7 +142,7 @@ function resetRoute(routeId) {
         return;
     }
     
-    const confirmMessage = `Are you sure you want to reset Route ${routeId}?\\n\\nThis will make it available for selection again.\\n\\nCurrently assigned to: ${route.assignedTo}`;
+    const confirmMessage = `Are you sure you want to reset Route ${routeId}?\n\nThis will make it available for selection again.\n\nCurrently assigned to: ${route.assignedTo}`;
     
     if (confirm(confirmMessage)) {
         // Remove assignment from route tracker
@@ -168,7 +168,7 @@ function clearAllAssignments() {
         return;
     }
     
-    const confirmMessage = `⚠️ WARNING: This will clear ALL route assignments!\\n\\n${assignedCount} routes will be reset to available.\\n\\nThis action cannot be undone.\\n\\nType "CLEAR ALL" to confirm:`;
+    const confirmMessage = `⚠️ WARNING: This will clear ALL route assignments!\n\n${assignedCount} routes will be reset to available.\n\nThis action cannot be undone.\n\nType "CLEAR ALL" to confirm:`;
     
     const userInput = prompt(confirmMessage);
     

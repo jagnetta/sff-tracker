@@ -35,7 +35,17 @@ function displayConfirmationPage(region, routeIds, userInfo) {
         <p><strong>Name:</strong> ${userInfo.lastName}</p>
         <p><strong>Unit:</strong> ${userInfo.unit}</p>
         <p><strong>Selection Date:</strong> ${new Date().toLocaleDateString()}</p>
+        
+        <div class="user-assignment-info">
+            <h4>Important Dates & Instructions</h4>
+            <p><strong>Door Hanger Distribution:</strong> Sat., Oct. 25th from 9 AM to 1 PM</p>
+            <p><strong>Food Pickup:</strong> Sat., Nov. 1st from 9 AM to 1 PM</p>
+            <p><strong>Food Drop Off Location:</strong> The Matthew Mission Food Pantry at 76 Church Green, Taunton, MA 02780</p>
+        </div>
     `;
+    
+    // Check and display existing assignments
+    displayExistingAssignments(userInfo);
     
     // Get route data for selected routes
     const allRoutes = routeData[region] || [];
@@ -69,6 +79,49 @@ function displaySelectedRoutes(routes) {
     `).join('');
     
     routesList.innerHTML = routesHTML;
+}
+
+function displayExistingAssignments(userInfo) {
+    const existingRouteIds = routeTracker.getUserAssignments(userInfo.lastName, userInfo.unit);
+    
+    if (existingRouteIds.length === 0) {
+        return; // No existing assignments to show
+    }
+    
+    const existingSection = document.getElementById('existingAssignmentsSection');
+    const existingList = document.getElementById('existingAssignmentsList');
+    
+    // Get route details for existing assignments
+    const existingRoutes = existingRouteIds.map(routeId => routeTracker.findRouteById(routeId)).filter(route => route);
+    
+    const existingHTML = existingRoutes.map(route => `
+        <div class="confirmation-route-card">
+            <div class="route-confirmation-header">
+                <h4>Route ${route.routeId} - ${route.name}</h4>
+                <span class="route-confirmation-flyers">${route.flyerCount} flyers</span>
+                <button onclick="removeExistingAssignment('${route.routeId}')" class="btn-danger remove-route-btn">Remove</button>
+            </div>
+            <div class="route-confirmation-description">
+                ${route.description}
+            </div>
+        </div>
+    `).join('');
+    
+    existingList.innerHTML = existingHTML;
+    existingSection.style.display = 'block';
+}
+
+function removeExistingAssignment(routeId) {
+    if (confirm('Are you sure you want to remove this route from your assignments?')) {
+        const removed = routeTracker.removeRouteAssignment(routeId);
+        if (removed) {
+            // Refresh the existing assignments display
+            const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+            displayExistingAssignments(userInfo);
+        } else {
+            alert('Error removing route assignment.');
+        }
+    }
 }
 
 function updateSummary(routes) {
