@@ -77,14 +77,17 @@ Each page includes authentication checks and redirects users appropriately:
 
 ### Print and Export Features
 
-- **User print**: Opens formatted HTML in new window with print dialog
-- **Admin CSV export**: Downloads CSV with proper CRLF line endings
+- **User print**: Opens formatted HTML in new window with print dialog, includes "Important Dates & Instructions" card
+- **Admin CSV export**: Downloads CSV with proper CRLF line endings for Excel compatibility
 - **Assignment reset**: Admin can reset individual routes or clear all assignments
+- **Route removal**: Users can remove their own route assignments, returning routes to available status
 
 ## Common Development Tasks
 
 ### Adding New Routes
 Edit the `routeData` object in `data.js` following the existing structure. Routes are organized by region.
+
+**Route Description Formatting**: Route descriptions use " - All //" as separators between street segments, except for the final segment which ends with " - All" (no double slash). This formatting is critical for proper display across the application.
 
 ### Modifying Authentication
 Update credentials in `auth.js` login handler. Two user types supported with different redirect flows.
@@ -95,12 +98,17 @@ The `RouteTracker` class in `route-tracker.js` handles all assignment persistenc
 - `isRouteAssigned()` - Checks availability  
 - `getAvailableRoutes()` - Filters by region and availability
 - `getUserAssignments()` - Gets user's routes
+- `removeRouteAssignment()` - Removes single route assignments
+- `clearAllAssignments()` - Admin function to reset all assignments
+- `exportAssignments()` - Generates text export of all assignments
 
 ### Styling Changes
 Dark theme CSS in `styles.css` with responsive design. Key classes:
 - `.btn-primary`, `.btn-secondary`, `.btn-danger` for buttons
 - `.stat-card` for dashboard statistics
 - `.route-card`, `.confirmation-route-card` for route displays
+- `.user-assignment-info`, `.user-confirmation-info` for information cards with dark theme background
+- Always use CSS classes rather than inline styles to maintain consistent dark theme styling
 
 ## Security Notes
 

@@ -29,9 +29,10 @@ The Taunton Scouting for Food Drive Route Selector processes route data from a C
 
 #### Assignment Management
 - **Existing Assignment Display**: Shows user's previously selected routes organized by region
+- **Route Removal**: Users can remove their own route assignments, returning routes to available status
 - **Additional Route Selection**: Option to select more routes from different regions
 - **Assignment Summary**: Total routes and flyer counts for user's assignments
-- **Print Functionality**: Professional print-ready format of route assignments
+- **Print Functionality**: Professional print-ready format with Important Dates & Instructions
 
 ### Administrative Features
 
@@ -58,6 +59,8 @@ The Taunton Scouting for Food Drive Route Selector processes route data from a C
 - **Responsive Design**: Mobile-friendly interface that works across all device sizes
 - **Intuitive Navigation**: Clear navigation paths with back links and logout options
 - **Real-time Updates**: Dynamic button updates and live assignment counts
+- **Self-Service Management**: Users can manage their own assignments without admin intervention
+- **Important Information Cards**: Key dates and instructions displayed prominently
 - **Error Handling**: User-friendly error messages and validation
 - **Print Optimization**: Clean, professional print layouts for route information
 
@@ -96,6 +99,7 @@ sff-tracker/
 - **Persistent Storage**: Route assignments survive browser restarts and are shared across users
 - **Assignment Prevention**: Routes assigned to one user are automatically hidden from others
 - **User Identification**: Tracks assignments by Last Name + Unit combination
+- **Assignment Removal**: Users can remove their own assignments, immediately making routes available to others
 
 #### Data Structure
 Routes are structured as:
@@ -177,8 +181,9 @@ No installation or build process required:
    - Confirm selection on confirmation page
 5. **Assignment Management**:
    - View existing assignments on return visits
+   - Remove unwanted route assignments (returns routes to available status)
    - Select additional routes from different regions
-   - Print route assignments for field use
+   - Print route assignments with important dates and instructions
 
 ### For Administrators
 1. **Access**: Open `index.html` in web browser
