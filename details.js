@@ -103,6 +103,13 @@ function downloadDetails() {
     content += `Total Flyers: ${totalFlyers.toLocaleString()}\\n`;
     content += `Generated: ${new Date().toLocaleDateString()}\\n\\n`;
     
+    content += `IMPORTANT ROUTE INSTRUCTIONS\\n`;
+    content += `========================================\\n`;
+    content += `Please pay close attention to odd numbers, even numbers, cross streets, etc. where\\n`;
+    content += `routes begin and end. "All" means both sides of street. This is to avoid overlapping.\\n\\n`;
+    content += `ROUTE DETAILS\\n`;
+    content += `========================================\\n\\n`;
+    
     selectedRoutes.forEach(route => {
         content += `ROUTE ${route.routeId} - ${route.name}\\n`;
         content += `Flyers: ${route.flyerCount}\\n`;
