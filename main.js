@@ -93,6 +93,7 @@ function showExistingAssignments(routeIds, userInfo) {
             <ul>`;
         
         routesByRegion[region].forEach(route => {
+            const mapUrl = generateGoogleMapsUrl(route);
             assignmentsHTML += `
                 <li class="assigned-route">
                     <div class="route-info">
@@ -100,7 +101,10 @@ function showExistingAssignments(routeIds, userInfo) {
                         <span class="route-flyers">${route.flyerCount} flyers</span>
                         <div class="route-desc">${route.description}</div>
                     </div>
-                    <button onclick="removeRouteFromAssignment('${route.routeId}')" class="btn-danger remove-route-btn">Remove</button>
+                    <div class="route-actions">
+                        <a href="${mapUrl}" target="_blank" class="btn-map">🗺️ View Map</a>
+                        <button onclick="removeRouteFromAssignment('${route.routeId}')" class="btn-danger remove-route-btn">Remove</button>
+                    </div>
                 </li>
             `;
         });
@@ -146,6 +150,54 @@ function showRegionSelector() {
     
     existingDiv.style.display = 'none';
     regionSelector.style.display = 'block';
+}
+
+function generateGoogleMapsUrl(route) {
+    // Parse the route description to extract street names
+    const description = route.description;
+    
+    // Split by " - All //" or " - All" to get individual street segments
+    const segments = description.split(/ - All(?:\s*\/\/|$)/).map(s => s.trim()).filter(s => s.length > 0);
+    
+    if (segments.length === 0) {
+        // Fallback to basic search
+        return `https://www.google.com/maps/search/${encodeURIComponent(route.name + ' Taunton MA')}`;
+    }
+    
+    // Create a directions URL connecting the street segments
+    // Start with the first street segment, then create waypoints for others
+    let waypoints = [];
+    
+    segments.forEach(segment => {
+        // Clean up the segment - remove parenthetical descriptions
+        let cleanSegment = segment.replace(/\([^)]+\)/g, '').trim();
+        
+        // Add "Taunton MA" to each segment
+        waypoints.push(encodeURIComponent(cleanSegment + ', Taunton, MA'));
+    });
+    
+    if (waypoints.length === 1) {
+        // Single location search - let Google Maps center on the street automatically
+        return `https://www.google.com/maps/search/${waypoints[0]}`;
+    } else {
+        // Multi-point directions - Google will automatically center on the route
+        const origin = waypoints[0];
+        const destination = waypoints[waypoints.length - 1];
+        const intermediate = waypoints.slice(1, -1);
+        
+        let url = `https://www.google.com/maps/dir/${origin}`;
+        
+        if (intermediate.length > 0) {
+            url += '/' + intermediate.join('/');
+        }
+        
+        if (waypoints.length > 1) {
+            url += '/' + destination;
+        }
+        
+        // Remove the fixed coordinates - let Google Maps center automatically on the route
+        return url;
+    }
 }
 
 function printUserAssignments() {
