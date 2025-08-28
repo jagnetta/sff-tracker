@@ -10,8 +10,6 @@ The Taunton Scouting for Food Drive Route Selector processes route data from a C
 
 ### Authentication System
 - **Dual Login System**: Separate access paths for volunteers and administrators
-- **Volunteer Access**: Username `liberty`, Password `union` (case-insensitive)
-- **Admin Access**: Username `baden`, Password `powell` (case-insensitive)
 - **Session Management**: Secure session handling with automatic logout functionality
 
 ### Volunteer Features
