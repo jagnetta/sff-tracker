@@ -173,7 +173,7 @@ No installation or build process required:
 
 ### For Volunteers
 1. **Access**: Open `index.html` in web browser
-2. **Login**: Use username `liberty` and password `union`
+2. **Login**: Contact Organization Leadership
 3. **Registration**: Provide Last Name and select Unit
 4. **Route Selection**: 
    - Choose region from dropdown
@@ -187,7 +187,7 @@ No installation or build process required:
 
 ### For Administrators
 1. **Access**: Open `index.html` in web browser
-2. **Login**: Use username `baden` and password `powell`
+2. **Login**: Contact Organization Leadership
 3. **Dashboard Overview**:
    - Monitor assignment statistics
    - View all routes and their assignment status
