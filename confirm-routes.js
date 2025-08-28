@@ -25,6 +25,54 @@ document.addEventListener('DOMContentLoaded', function() {
     displayConfirmationPage(selectedRegion, selectedRouteIds, JSON.parse(userInfo));
 });
 
+function generateGoogleMapsUrl(route) {
+    // Parse the route description to extract street names
+    const description = route.description;
+    
+    // Split by " - All //" or " - All" to get individual street segments
+    const segments = description.split(/ - All(?:\s*\/\/|$)/).map(s => s.trim()).filter(s => s.length > 0);
+    
+    if (segments.length === 0) {
+        // Fallback to basic search
+        return `https://www.google.com/maps/search/${encodeURIComponent(route.name + ' Taunton MA')}`;
+    }
+    
+    // Create a directions URL connecting the street segments
+    // Start with the first street segment, then create waypoints for others
+    let waypoints = [];
+    
+    segments.forEach(segment => {
+        // Clean up the segment - remove parenthetical descriptions
+        let cleanSegment = segment.replace(/\([^)]+\)/g, '').trim();
+        
+        // Add "Taunton MA" to each segment
+        waypoints.push(encodeURIComponent(cleanSegment + ', Taunton, MA'));
+    });
+    
+    if (waypoints.length === 1) {
+        // Single location search - let Google Maps center on the street automatically
+        return `https://www.google.com/maps/search/${waypoints[0]}`;
+    } else {
+        // Multi-point directions - Google will automatically center on the route
+        const origin = waypoints[0];
+        const destination = waypoints[waypoints.length - 1];
+        const intermediate = waypoints.slice(1, -1);
+        
+        let url = `https://www.google.com/maps/dir/${origin}`;
+        
+        if (intermediate.length > 0) {
+            url += '/' + intermediate.join('/');
+        }
+        
+        if (waypoints.length > 1) {
+            url += '/' + destination;
+        }
+        
+        // Remove the fixed coordinates - let Google Maps center automatically on the route
+        return url;
+    }
+}
+
 function displayConfirmationPage(region, routeIds, userInfo) {
     // Display region
     document.getElementById('selectedRegion').textContent = region;
@@ -66,63 +114,33 @@ function displaySelectedRoutes(routes) {
         return;
     }
     
-    const routesHTML = routes.map(route => `
-        <div class="confirmation-route-card">
-            <div class="route-confirmation-header">
-                <h4>Route ${route.routeId} - ${route.name}</h4>
-                <span class="route-confirmation-flyers">${route.flyerCount} flyers</span>
+    const routesHTML = routes.map(route => {
+        const mapUrl = generateGoogleMapsUrl(route);
+        return `
+            <div class="confirmation-route-card">
+                <div class="route-confirmation-header">
+                    <h4>Route ${route.routeId} - ${route.name}</h4>
+                    <span class="route-confirmation-flyers">${route.flyerCount} flyers</span>
+                </div>
+                <div class="route-confirmation-description">
+                    ${route.description}
+                </div>
+                <div class="route-actions">
+                    <a href="${mapUrl}" target="_blank" class="btn-map">🗺️ View Map</a>
+                </div>
             </div>
-            <div class="route-confirmation-description">
-                ${route.description}
-            </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
     
     routesList.innerHTML = routesHTML;
 }
 
 function displayExistingAssignments(userInfo) {
-    const existingRouteIds = routeTracker.getUserAssignments(userInfo.lastName, userInfo.unit);
-    
-    if (existingRouteIds.length === 0) {
-        return; // No existing assignments to show
-    }
-    
+    // Hide the existing assignments section on confirm page
     const existingSection = document.getElementById('existingAssignmentsSection');
-    const existingList = document.getElementById('existingAssignmentsList');
-    
-    // Get route details for existing assignments
-    const existingRoutes = existingRouteIds.map(routeId => routeTracker.findRouteById(routeId)).filter(route => route);
-    
-    const existingHTML = existingRoutes.map(route => `
-        <div class="confirmation-route-card">
-            <div class="route-confirmation-header">
-                <h4>Route ${route.routeId} - ${route.name}</h4>
-                <span class="route-confirmation-flyers">${route.flyerCount} flyers</span>
-                <button onclick="removeExistingAssignment('${route.routeId}')" class="btn-danger remove-route-btn">Remove</button>
-            </div>
-            <div class="route-confirmation-description">
-                ${route.description}
-            </div>
-        </div>
-    `).join('');
-    
-    existingList.innerHTML = existingHTML;
-    existingSection.style.display = 'block';
+    existingSection.style.display = 'none';
 }
 
-function removeExistingAssignment(routeId) {
-    if (confirm('Are you sure you want to remove this route from your assignments?')) {
-        const removed = routeTracker.removeRouteAssignment(routeId);
-        if (removed) {
-            // Refresh the existing assignments display
-            const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
-            displayExistingAssignments(userInfo);
-        } else {
-            alert('Error removing route assignment.');
-        }
-    }
-}
 
 function updateSummary(routes) {
     const totalFlyers = routes.reduce((sum, route) => sum + route.flyerCount, 0);
