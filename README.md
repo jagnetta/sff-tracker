@@ -87,7 +87,6 @@ sff-tracker/
 ├── confirm-routes.js       # Confirmation page functionality
 ├── details.js              # Assignment details and print functionality
 ├── admin-dashboard.js      # Complete admin dashboard functionality
-├── 2025-Taunton-SFF-signup.csv  # Source route data
 ├── CLAUDE.md               # Developer guidance for Claude Code
 └── README.md               # This comprehensive documentation
 ```
@@ -204,8 +203,8 @@ No installation or build process required:
 ## Data Source & Coverage
 
 ### Route Information
-- **Source File**: `2025-Taunton-SFF-signup.csv`
-- **Total Routes**: 150+ routes across Taunton
+- **Source Data**: Static route data in `data.js` (originally derived from CSV data)
+- **Total Routes**: 149 routes across Taunton
 - **Geographic Coverage**: 6 distinct regions covering all of Taunton
 - **Route Details**: Street-by-street descriptions for each route
 - **Flyer Distribution**: Specific flyer counts for each route
