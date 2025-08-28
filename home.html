@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taunton Scouting for Food Drive Route Selector</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Taunton Scouting for Food Drive Route Selector</h1>
+            <p>Select your region to view available routes</p>
+            <div class="logout-section">
+                <button onclick="logout()" class="btn-secondary">Logout</button>
+            </div>
+        </header>
+
+        <main>
+            <div id="existingAssignments" class="existing-assignments" style="display: none;">
+                <h2>Your Current Route Assignments</h2>
+                <div id="assignmentsList"></div>
+                <div class="assignment-actions">
+                    <button onclick="showRegionSelector()" class="btn-secondary">Select Additional Routes</button>
+                    <button onclick="printUserAssignments()" class="btn-secondary">Print My Routes</button>
+                </div>
+            </div>
+            
+            <div id="regionSelector" class="region-selector">
+                <h2>Select Your Region</h2>
+                <form id="regionForm">
+                    <label for="regionSelect">Choose a region:</label>
+                    <select id="regionSelect" name="region" required>
+                        <option value="">-- Please select a region --</option>
+                        <option value="CENTER">CENTER</option>
+                        <option value="WEIR">WEIR</option>
+                        <option value="OAKLAND">OAKLAND</option>
+                        <option value="WHITTENTON">WHITTENTON</option>
+                        <option value="EAST TAUNTON">EAST TAUNTON</option>
+                        <option value="WESTVILLE">WESTVILLE</option>
+                    </select>
+                    <button type="submit" class="btn-primary">View Routes</button>
+                </form>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Taunton Food Drive</p>
+        </footer>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="data.js"></script>
+    <script src="route-tracker.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

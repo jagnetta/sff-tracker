@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Details - Taunton Food Drive</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Your Selected Route Details</h1>
+            <div class="navigation-links">
+                <a href="home.html" class="back-link">← Back to Region Selection</a>
+                <a href="javascript:history.back()" class="back-link">← Back to Route Selection</a>
+                <button onclick="logout()" class="btn-secondary">Logout</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="route-details-container">
+                <div class="summary-section">
+                    <h2>Summary</h2>
+                    <div id="summaryInfo" class="summary-info">
+                        <!-- Summary will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="routes-details-section">
+                    <h2>Route Details</h2>
+                    <div id="routeDetails" class="route-details">
+                        <!-- Route details will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="actions-section">
+                    <button onclick="printDetails()" class="btn-secondary">Print Details</button>
+                    <button onclick="downloadDetails()" class="btn-secondary">Download as Text</button>
+                    <button onclick="window.location.href='home.html'" class="btn-primary">Start Over</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Taunton Food Drive</p>
+        </footer>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="data.js"></script>
+    <script src="route-tracker.js"></script>
+    <script src="details.js"></script>
+</body>
+</html>

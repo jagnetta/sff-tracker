@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Route Selection - Taunton Scouting for Food Drive</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Confirm Your Route Selection</h1>
+            <p id="regionTitle">Region: <span id="selectedRegion"></span></p>
+            <div class="navigation-links">
+                <a href="javascript:history.back()" class="back-link">← Back to Route Selection</a>
+                <button onclick="logout()" class="btn-secondary">Logout</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="confirmation-container">
+                <div class="user-confirmation-info">
+                    <h2>Assignment Details</h2>
+                    <div id="userInfo"></div>
+                </div>
+
+                <div class="selected-routes-review">
+                    <h3>Selected Routes</h3>
+                    <div id="selectedRoutesList"></div>
+                    
+                    <div class="confirmation-summary">
+                        <div class="summary-stats">
+                            <div class="stat-item">
+                                <span class="stat-value" id="totalRoutes">0</span>
+                                <span class="stat-label">Routes Selected</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value" id="totalFlyers">0</span>
+                                <span class="stat-label">Total Flyers</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="confirmation-warning">
+                    <p><strong>⚠️ Important:</strong> Once you confirm your selection, these routes will no longer be available for other users to select.</p>
+                </div>
+
+                <div class="confirmation-actions">
+                    <button onclick="cancelSelection()" class="btn-secondary">Cancel & Go Back</button>
+                    <button onclick="confirmSelection()" class="btn-primary">Confirm Route Selection</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Taunton Scouting for Food Drive</p>
+        </footer>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="data.js"></script>
+    <script src="route-tracker.js"></script>
+    <script src="confirm-routes.js"></script>
+</body>
+</html>

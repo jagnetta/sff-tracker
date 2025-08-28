@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taunton Scouting for Food Drive Route Selector</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div id="loadingMessage" class="loading-message">
+            <p>Checking authentication...</p>
+        </div>
+    </div>
+
+    <script>
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const isAuthenticated = sessionStorage.getItem('authenticated');
+            const isAdmin = sessionStorage.getItem('isAdmin');
+            const userInfo = sessionStorage.getItem('userInfo');
+            
+            if (isAuthenticated === 'true') {
+                if (isAdmin === 'true') {
+                    // Admin user, redirect to dashboard
+                    window.location.href = 'admin-dashboard.html';
+                } else if (userInfo) {
+                    // Regular user is authenticated and has provided info, redirect to home page
+                    window.location.href = 'home.html';
+                } else {
+                    // Regular user is authenticated but needs to provide info
+                    window.location.href = 'user-info.html';
+                }
+            } else {
+                // User is not authenticated, redirect to login
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+</body>
+</html>

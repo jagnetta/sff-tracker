@@ -1,0 +1,824 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #e0e0e0;
+    background-color: #1a1a1a;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    background: #2d2d2d;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+    color: #4a9eff;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #b0b0b0;
+    font-size: 1.1em;
+}
+
+#regionTitle {
+    font-size: 1.2em;
+    color: #4a9eff;
+    font-weight: 600;
+}
+
+.navigation-links {
+    margin-top: 20px;
+}
+
+.back-link {
+    color: #4a9eff;
+    text-decoration: none;
+    font-weight: 500;
+    margin: 0 10px;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.region-selector {
+    background: #2d2d2d;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    min-width: 400px;
+}
+
+.region-selector h2 {
+    color: #4a9eff;
+    margin-bottom: 30px;
+    font-size: 1.8em;
+}
+
+.region-selector label {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #b0b0b0;
+}
+
+.region-selector select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #555;
+    border-radius: 5px;
+    margin-bottom: 25px;
+    background-color: #3a3a3a;
+    color: #e0e0e0;
+}
+
+.region-selector select:focus {
+    outline: none;
+    border-color: #4a9eff;
+}
+
+/* Login Form Styles */
+.login-container {
+    background: #2d2d2d;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    min-width: 400px;
+    max-width: 500px;
+}
+
+.login-container h2 {
+    color: #4a9eff;
+    margin-bottom: 30px;
+    font-size: 1.8em;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #b0b0b0;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #555;
+    border-radius: 5px;
+    background-color: #3a3a3a;
+    color: #e0e0e0;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #4a9eff;
+}
+
+.error-message {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.loading-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #b0b0b0;
+    font-size: 1.2em;
+}
+
+/* Logout Section */
+.logout-section {
+    margin-top: 15px;
+}
+
+.logout-section button {
+    font-size: 14px;
+    padding: 8px 16px;
+}
+
+/* User Info Form Styles */
+.user-info-container {
+    background: #2d2d2d;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    min-width: 400px;
+    max-width: 500px;
+}
+
+.user-info-container h2 {
+    color: #4a9eff;
+    margin-bottom: 30px;
+    font-size: 1.8em;
+}
+
+.user-info-container select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #555;
+    border-radius: 5px;
+    background-color: #3a3a3a;
+    color: #e0e0e0;
+}
+
+.user-info-container select:focus {
+    outline: none;
+    border-color: #4a9eff;
+}
+
+/* Existing Assignments Styles */
+.existing-assignments {
+    background: #2d2d2d;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 900px;
+}
+
+.existing-assignments h2 {
+    color: #4a9eff;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.user-assignment-info {
+    background: #3a3a3a;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.user-assignment-info p {
+    margin: 5px 0;
+    font-size: 1.1em;
+}
+
+.assignments-by-region {
+    margin-bottom: 30px;
+}
+
+.region-assignments {
+    margin-bottom: 25px;
+}
+
+.region-assignments h3 {
+    color: #4a9eff;
+    font-size: 1.3em;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #555;
+    padding-bottom: 5px;
+}
+
+.region-assignments ul {
+    list-style: none;
+    padding: 0;
+}
+
+.assigned-route {
+    background: #3a3a3a;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-left: 4px solid #4a9eff;
+}
+
+.assigned-route strong {
+    color: #4a9eff;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.route-flyers {
+    color: #66d066;
+    font-weight: 600;
+    float: right;
+}
+
+.route-desc {
+    color: #b0b0b0;
+    font-size: 0.9em;
+    margin-top: 10px;
+    clear: both;
+}
+
+.assignment-actions {
+    text-align: center;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Route Confirmation Styles */
+.confirmation-container {
+    background: #2d2d2d;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 900px;
+}
+
+.user-confirmation-info {
+    background: #3a3a3a;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.user-confirmation-info h2 {
+    color: #4a9eff;
+    margin-bottom: 15px;
+}
+
+.user-confirmation-info p {
+    margin: 5px 0;
+}
+
+.selected-routes-review {
+    margin-bottom: 30px;
+}
+
+.selected-routes-review h3 {
+    color: #4a9eff;
+    margin-bottom: 20px;
+}
+
+.confirmation-route-card {
+    background: #3a3a3a;
+    border: 1px solid #555;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.route-confirmation-header {
+    background: #4a9eff;
+    color: #1a1a1a;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+}
+
+.route-confirmation-flyers {
+    font-weight: bold;
+}
+
+.route-confirmation-description {
+    padding: 15px 20px;
+    color: #e0e0e0;
+    line-height: 1.5;
+}
+
+.confirmation-summary {
+    margin-top: 20px;
+}
+
+.summary-stats {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    background: #3a3a3a;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 2em;
+    font-weight: bold;
+    color: #4a9eff;
+    display: block;
+}
+
+.stat-label {
+    color: #b0b0b0;
+    font-size: 0.9em;
+}
+
+.confirmation-warning {
+    background: #dc3545;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.confirmation-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Admin Dashboard Styles */
+.admin-header-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.dashboard-container {
+    background: #2d2d2d;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 1200px;
+}
+
+.dashboard-stats h2 {
+    color: #4a9eff;
+    margin-bottom: 20px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: #3a3a3a;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    border-left: 4px solid #4a9eff;
+}
+
+.stat-card .stat-value {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #4a9eff;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.stat-card .stat-label {
+    color: #b0b0b0;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.dashboard-filters {
+    margin-bottom: 30px;
+}
+
+.dashboard-filters h3 {
+    color: #4a9eff;
+    margin-bottom: 15px;
+}
+
+.filter-controls {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.filter-controls select,
+.filter-controls input {
+    padding: 8px 12px;
+    border: 2px solid #555;
+    border-radius: 4px;
+    background-color: #3a3a3a;
+    color: #e0e0e0;
+}
+
+.filter-controls select:focus,
+.filter-controls input:focus {
+    outline: none;
+    border-color: #4a9eff;
+}
+
+.routes-table-container h3 {
+    color: #4a9eff;
+    margin-bottom: 15px;
+}
+
+.routes-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #3a3a3a;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.routes-table th {
+    background: #4a9eff;
+    color: #1a1a1a;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.routes-table td {
+    padding: 12px;
+    border-bottom: 1px solid #555;
+    color: #e0e0e0;
+}
+
+.routes-table tbody tr:hover {
+    background: #4a4a4a;
+}
+
+.routes-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-badge.assigned {
+    background: #dc3545;
+    color: white;
+}
+
+.status-badge.available {
+    background: #28a745;
+    color: white;
+}
+
+.btn-reset {
+    background-color: #ffc107;
+    color: #1a1a1a;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-reset:hover {
+    background-color: #e0a800;
+}
+
+.no-action {
+    color: #666;
+    text-align: center;
+}
+
+.no-routes {
+    text-align: center;
+    color: #b0b0b0;
+    font-style: italic;
+    padding: 20px;
+}
+
+.btn-primary {
+    background-color: #4a9eff;
+    color: #1a1a1a;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: #2d7bdb;
+}
+
+.btn-primary:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+    color: #888;
+}
+
+.btn-secondary {
+    background-color: #555;
+    color: #e0e0e0;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: background-color 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: #666;
+}
+
+/* Route Selection Page */
+.route-selection-container {
+    background: #2d2d2d;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 800px;
+}
+
+.route-instructions {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.route-instructions h3 {
+    color: #4a9eff;
+    margin-bottom: 10px;
+}
+
+.routes-list {
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 30px;
+    background-color: #3a3a3a;
+}
+
+.route-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #555;
+    transition: background-color 0.2s;
+}
+
+.route-item:last-child {
+    border-bottom: none;
+}
+
+.route-item:hover {
+    background-color: #4a4a4a;
+}
+
+.route-item input[type="checkbox"] {
+    margin-right: 15px;
+    transform: scale(1.2);
+}
+
+.route-info {
+    flex: 1;
+}
+
+.route-header {
+    font-weight: 600;
+    color: #4a9eff;
+    margin-bottom: 5px;
+}
+
+.route-description {
+    color: #b0b0b0;
+    font-size: 0.9em;
+}
+
+.flyer-count {
+    color: #66d066;
+    font-weight: 600;
+    margin-left: 15px;
+}
+
+.form-actions {
+    text-align: center;
+}
+
+/* Route Details Page */
+.route-details-container {
+    background: #2d2d2d;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 1000px;
+}
+
+.summary-section {
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: #3a3a3a;
+    border-radius: 5px;
+}
+
+.summary-section h2 {
+    color: #4a9eff;
+    margin-bottom: 15px;
+}
+
+.summary-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.summary-item {
+    text-align: center;
+}
+
+.summary-value {
+    font-size: 2em;
+    font-weight: bold;
+    color: #4a9eff;
+}
+
+.summary-label {
+    color: #b0b0b0;
+    font-weight: 500;
+}
+
+.routes-details-section h2 {
+    color: #4a9eff;
+    margin-bottom: 20px;
+}
+
+.route-detail-card {
+    border: 1px solid #555;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.route-detail-header {
+    background-color: #4a9eff;
+    color: #1a1a1a;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.route-detail-content {
+    padding: 20px;
+    background-color: #3a3a3a;
+}
+
+.route-detail-description {
+    line-height: 1.6;
+    color: #e0e0e0;
+}
+
+.actions-section {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #555;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    color: #b0b0b0;
+    background: #2d2d2d;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    header h1 {
+        font-size: 2em;
+    }
+    
+    .region-selector {
+        min-width: auto;
+        padding: 20px;
+    }
+    
+    .route-selection-container {
+        padding: 20px;
+    }
+    
+    .route-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .flyer-count {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+    
+    .summary-info {
+        grid-template-columns: 1fr;
+    }
+}

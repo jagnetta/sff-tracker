@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information - Taunton Scouting for Food Drive</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>User Information</h1>
+            <p>Please provide your Last Name and Unit to continue</p>
+            <div class="logout-section">
+                <button onclick="logout()" class="btn-secondary">Logout</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="user-info-container">
+                <h2>Enter Your Details</h2>
+                <form id="userInfoForm">
+                    <div class="form-group">
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="unit">Unit:</label>
+                        <select id="unit" name="unit" required>
+                            <option value="">-- Please select your unit --</option>
+                            <option value="Troop 40">Troop 40</option>
+                            <option value="Troop 22">Troop 22</option>
+                            <option value="Pack 49">Pack 49</option>
+                            <option value="Pack 87">Pack 87</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div id="otherUnitGroup" class="form-group" style="display: none;">
+                        <label for="otherUnit">Please specify your unit:</label>
+                        <input type="text" id="otherUnit" name="otherUnit">
+                    </div>
+                    
+                    <div id="errorMessage" class="error-message" style="display: none;"></div>
+                    
+                    <button type="submit" class="btn-primary">Continue to Route Selection</button>
+                </form>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Taunton Scouting for Food Drive</p>
+        </footer>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="user-info.js"></script>
+</body>
+</html>

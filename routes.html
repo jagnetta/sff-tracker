@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Routes - Taunton Food Drive</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Select Your Routes</h1>
+            <p id="regionTitle">Region: <span id="selectedRegion"></span></p>
+            <div class="navigation-links">
+                <a href="home.html" class="back-link">← Back to Region Selection</a>
+                <button onclick="logout()" class="btn-secondary">Logout</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="route-selection-container">
+                <form id="routeForm">
+                    <div class="route-instructions">
+                        <h3>Select one or more routes:</h3>
+                        <p>Check the boxes next to the routes you want to take responsibility for.</p>
+                    </div>
+
+                    <div id="routesList" class="routes-list">
+                        <!-- Routes will be populated by JavaScript -->
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary" id="submitRoutes" disabled>
+                            Confirm Selected Routes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Taunton Food Drive</p>
+        </footer>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="data.js"></script>
+    <script src="route-tracker.js"></script>
+    <script src="routes.js"></script>
+</body>
+</html>

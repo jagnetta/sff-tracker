@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Taunton Scouting for Food Drive</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Admin Dashboard</h1>
+            <p>Route Assignment Management</p>
+            <div class="admin-header-actions">
+                <button onclick="exportAllAssignments()" class="btn-secondary">Export All Assignments</button>
+                <button onclick="clearAllAssignments()" class="btn-danger">Clear All Assignments</button>
+                <button onclick="logout()" class="btn-secondary">Logout</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="dashboard-container">
+                <div class="dashboard-stats">
+                    <h2>Assignment Statistics</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalAssignedRoutes">0</div>
+                            <div class="stat-label">Routes Assigned</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalAvailableRoutes">0</div>
+                            <div class="stat-label">Routes Available</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalUnits">0</div>
+                            <div class="stat-label">Active Units</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="assignedFlyers">0</div>
+                            <div class="stat-label">Assigned Flyers</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="remainingFlyers">0</div>
+                            <div class="stat-label">Remaining Flyers</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-filters">
+                    <h3>Filter Routes</h3>
+                    <div class="filter-controls">
+                        <select id="regionFilter">
+                            <option value="">All Regions</option>
+                            <option value="CENTER">CENTER</option>
+                            <option value="WEIR">WEIR</option>
+                            <option value="OAKLAND">OAKLAND</option>
+                            <option value="WHITTENTON">WHITTENTON</option>
+                            <option value="EAST TAUNTON">EAST TAUNTON</option>
+                            <option value="WESTVILLE">WESTVILLE</option>
+                        </select>
+                        <select id="statusFilter">
+                            <option value="">All Status</option>
+                            <option value="assigned">Assigned</option>
+                            <option value="available">Available</option>
+                        </select>
+                        <input type="text" id="searchFilter" placeholder="Search by route ID, name, or assignee">
+                        <button onclick="applyFilters()" class="btn-primary">Apply Filters</button>
+                    </div>
+                </div>
+
+                <div class="routes-table-container">
+                    <h3>All Routes</h3>
+                    <table id="routesTable" class="routes-table">
+                        <thead>
+                            <tr>
+                                <th>Route ID</th>
+                                <th>Region</th>
+                                <th>Route Name</th>
+                                <th>Flyers</th>
+                                <th>Status</th>
+                                <th>Assigned To</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="routesTableBody">
+                            <!-- Routes will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Taunton Scouting for Food Drive - Admin Dashboard</p>
+        </footer>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="data.js"></script>
+    <script src="route-tracker.js"></script>
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>
