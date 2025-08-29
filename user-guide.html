@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Guide - Taunton Scouting for Food Drive</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .help-content {
+            background: #2d2d2d;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+        
+        .help-content h2 {
+            color: #4a9eff;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #555;
+            padding-bottom: 10px;
+        }
+        
+        .help-content h3 {
+            color: #4a9eff;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        
+        .help-content h4 {
+            color: #b0b0b0;
+            margin: 20px 0 10px 0;
+            font-size: 1.2em;
+        }
+        
+        .help-content ul, .help-content ol {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+        
+        .help-content li {
+            margin-bottom: 8px;
+            color: #e0e0e0;
+        }
+        
+        .help-content p {
+            margin-bottom: 15px;
+            color: #e0e0e0;
+        }
+        
+        .help-content strong {
+            color: #4a9eff;
+        }
+        
+        .important-dates {
+            background: #3a4a3a;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .credentials-box {
+            background: #4a3a3a;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .tips-box {
+            background: #3a3a4a;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .btn-help {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 5px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn-help:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>User Guide</h1>
+            <p>How to Use the Food Drive Route Website</p>
+            <div class="navigation-links">
+                <button onclick="goBack()" class="btn-secondary">← Go Back</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="help-content">
+                <h2>What This Website Does</h2>
+                <p>This website helps you pick routes for the Taunton Food Drive. You will choose streets where you will put door hangers and pick up food.</p>
+                
+                <div class="credentials-box">
+                    <h3>Before You Start</h3>
+                    <p>You need to know:</p>
+                    <ul>
+                        <li>Username: <strong>Contact Your Unit Leader</strong></li>
+                        <li>Password: <strong>Contact Your Unit Leader</strong></li>
+                        <li>Your last name</li>
+                        <li>Your scout unit (like Troop 40, Pack 49)</li>
+                    </ul>
+                </div>
+
+                <div class="important-dates">
+                    <h3>Important Dates to Remember</h3>
+                    <ul>
+                        <li><strong>Put door hangers on houses:</strong> Oct. 25-26th from 9 AM to 3 PM</li>
+                        <li><strong>Pick up food bags:</strong> Saturday, November 1st from 9 AM to 1 PM</li>
+                        <li><strong>Bring food to:</strong> The Matthew Mission Food Pantry at 76 Church Green, Taunton, MA 02780</li>
+                    </ul>
+                </div>
+
+                <h2>Step-by-Step Instructions</h2>
+
+                <h3>Step 1: Login</h3>
+                <ol>
+                    <li>Open the website</li>
+                    <li>Type <strong>The Username that was Provided</strong> for username</li>
+                    <li>Type <strong>The Password that was Provided</strong> for password</li>
+                    <li>Click "Login"</li>
+                </ol>
+
+                <h3>Step 2: Tell Us About You</h3>
+                <ol>
+                    <li>Type your last name</li>
+                    <li>Pick your scout unit from the list</li>
+                    <li>Click "Continue to Route Selection"</li>
+                </ol>
+
+                <h3>Step 3: Pick Your Area</h3>
+                <ol>
+                    <li>Look at the 6 areas:
+                        <ul>
+                            <li>CENTER</li>
+                            <li>WEIR</li>
+                            <li>OAKLAND</li>
+                            <li>WHITTENTON</li>
+                            <li>EAST TAUNTON</li>
+                            <li>WESTVILLE</li>
+                        </ul>
+                    </li>
+                    <li>Pick the area closest to your home</li>
+                    <li>Click "View Routes"</li>
+                </ol>
+
+                <h3>Step 4: Choose Your Routes</h3>
+                <ol>
+                    <li>You will see a list of streets in your area</li>
+                    <li>Each route shows:
+                        <ul>
+                            <li>The street name</li>
+                            <li>How many door hangers you need</li>
+                            <li>Which houses to visit</li>
+                        </ul>
+                    </li>
+                    <li>Check the box next to routes you want</li>
+                    <li>You can pick more than one route</li>
+                    <li>Click "Confirm Selected Routes"</li>
+                </ol>
+
+                <h3>Step 5: Check Your Choice</h3>
+                <ol>
+                    <li>Look at your chosen routes</li>
+                    <li>Make sure everything looks right</li>
+                    <li>If you want to change something, click "Back"</li>
+                    <li>If everything is good, click "Confirm Assignment"</li>
+                </ol>
+
+                <h3>Step 6: Print Your Routes</h3>
+                <ol>
+                    <li>Your routes will show on the screen</li>
+                    <li>Click "Print Details" to print them</li>
+                    <li>Keep this paper with you when doing the food drive</li>
+                </ol>
+
+                <h2>Special Features You Can Use</h2>
+
+                <h4>View Routes on Google Maps</h4>
+                <ul>
+                    <li>Next to each route, click the 🗺️ button</li>
+                    <li>This opens Google Maps to show you the streets</li>
+                    <li>Use this to see where you need to go</li>
+                </ul>
+
+                <h4>Remove Routes You Don't Want</h4>
+                <ul>
+                    <li>If you picked too many routes, you can remove some</li>
+                    <li>Click the red "Remove" button next to a route</li>
+                    <li>The route will go back for other people to pick</li>
+                </ul>
+
+                <h4>Print Your Routes Anytime</h4>
+                <ul>
+                    <li>Go back to the main page</li>
+                    <li>Click "Print My Routes"</li>
+                    <li>This prints all your routes with the important dates</li>
+                </ul>
+
+                <h2>Important Things to Remember</h2>
+
+                <h4>About the Streets</h4>
+                <ul>
+                    <li><strong>"All"</strong> means both sides of the street</li>
+                    <li>Pay attention to house numbers (like "odd numbers only")</li>
+                    <li>Some routes say "from Main St to Oak St" - this tells you where to start and stop</li>
+                    <li>Follow the directions exactly so you don't miss houses</li>
+                </ul>
+
+                <h4>What the Numbers Mean</h4>
+                <ul>
+                    <li>Each route tells you how many door hangers you need</li>
+                    <li>Pick routes that match how much time you have</li>
+                    <li>More door hangers = more time needed</li>
+                </ul>
+
+                <h4>Getting Help</h4>
+                <ul>
+                    <li>If you make a mistake, you can always start over</li>
+                    <li>Click "Start Over" to go back to picking areas</li>
+                    <li>You can add more routes anytime before the food drive</li>
+                </ul>
+
+                <div class="tips-box">
+                    <h2>Tips for Success</h2>
+                    <ol>
+                        <li>Pick routes near your house so it's easier to get there</li>
+                        <li>Don't pick too many routes if you're new to this</li>
+                        <li>Print your routes and keep the paper safe</li>
+                        <li>Use Google Maps to plan the best way to visit all your streets</li>
+                        <li>Remember both important dates - October 25-26th and November 1st</li>
+                    </ol>
+                </div>
+
+                <h2>What Happens Next</h2>
+                <ol>
+                    <li>Get your door hangars from your Unit Leaders</li>
+                    <li>On October 25th or 26th, put door hangers on doors</li>
+                    <li>On November 1st, go back to the same houses</li>
+                    <li>Pick up the food bags people left out</li>
+                    <li>Take all the food to 76 Church Green, Taunton</li>
+                </ol>
+
+                <p style="text-align: center; margin-top: 30px; font-size: 1.2em; color: #28a745;"><strong>Good luck with your food drive routes!</strong></p>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; Taunton Scouting for Food Drive</p>
+        </footer>
+    </div>
+
+    <script>
+        function goBack() {
+            // Try to go back to the previous page, or default to home
+            if (document.referrer && document.referrer !== window.location.href) {
+                window.history.back();
+            } else {
+                // If no referrer or same page, try to determine where to go
+                const isAuthenticated = sessionStorage.getItem('authenticated');
+                const isAdmin = sessionStorage.getItem('isAdmin');
+                const userInfo = sessionStorage.getItem('userInfo');
+                
+                if (isAuthenticated === 'true') {
+                    if (isAdmin === 'true') {
+                        window.location.href = 'admin-dashboard.html';
+                    } else if (userInfo) {
+                        window.location.href = 'home.html';
+                    } else {
+                        window.location.href = 'user-info.html';
+                    }
+                } else {
+                    window.location.href = 'login.html';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -651,6 +651,24 @@ main {
     background-color: #666;
 }
 
+.btn-help {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-help:hover {
+    background-color: #218838;
+}
+
 /* Route Selection Page */
 .route-selection-container {
     background: #2d2d2d;
