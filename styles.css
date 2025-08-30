@@ -175,7 +175,7 @@ main {
 
 .logout-section button {
     font-size: 14px;
-    padding: 8px 16px;
+    padding: 10px 20px;
 }
 
 /* User Info Form Styles */
@@ -817,6 +817,117 @@ main {
 .route-detail-description {
     line-height: 1.6;
     color: #e0e0e0;
+    margin-bottom: 15px;
+}
+
+.route-map-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: #2a2a2a;
+    border-radius: 5px;
+    border: 1px solid #555;
+}
+
+.route-qr-code {
+    flex-shrink: 0;
+}
+
+.route-qr-code img {
+    display: block;
+    border: 1px solid #555;
+}
+
+.qr-fallback {
+    background: #f5f5f5;
+    color: #666;
+}
+
+.route-map-info {
+    color: #e0e0e0;
+}
+
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .container {
+        max-width: none !important;
+        padding: 10px !important;
+    }
+    
+    header {
+        background: white !important;
+        border: 1px solid #ccc !important;
+        color: black !important;
+    }
+    
+    .route-detail-card {
+        background: white !important;
+        border: 1px solid #ccc !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+    
+    .route-detail-header {
+        background: #f0f0f0 !important;
+        color: black !important;
+    }
+    
+    .route-detail-content {
+        background: white !important;
+    }
+    
+    .route-detail-description {
+        color: black !important;
+    }
+    
+    .user-assignment-info {
+        background: white !important;
+        border: 1px solid #ccc !important;
+        color: black !important;
+    }
+    
+    .summary-section {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .summary-info {
+        background: white !important;
+    }
+    
+    .summary-item {
+        color: black !important;
+    }
+    
+    .route-map-section {
+        background: white !important;
+        border-color: #ccc !important;
+        break-inside: avoid;
+    }
+    
+    .route-map-info {
+        color: black !important;
+    }
+    
+    .route-qr-code img {
+        border: 1px solid #000 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    .qr-fallback {
+        background: white !important;
+        color: black !important;
+        border: 2px solid #000 !important;
+    }
 }
 
 .actions-section {

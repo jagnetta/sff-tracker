@@ -45,6 +45,8 @@ Admin users go directly to: Login → Admin Dashboard
 6. `confirm-routes.html` - Confirmation step before assignment
 7. `details.html` - Final assignment confirmation and print functionality
 8. `admin-dashboard.html` - Complete assignment management (admin only)
+9. `print-routes.html` - Optimized print layout with QR codes (auto-opens print dialog)
+10. `user-guide.html` - Help documentation accessible from all pages
 
 ### Data Structures
 
@@ -77,10 +79,22 @@ Each page includes authentication checks and redirects users appropriately:
 
 ### Print and Export Features
 
-- **User print**: Opens formatted HTML in new window with print dialog, includes "Important Dates & Instructions" card
+- **User print**: Opens `print-routes.html` in new window with auto-print functionality
+- **Print page optimization**: Compact layout with QR codes, efficient spacing for minimal paper usage
+- **QR code generation**: Uses TinyURL API to shorten complex Google Maps URLs, then generates QR codes client-side or via fallback API
+- **Auto-print timing**: Waits for all QR codes to complete URL shortening and generation before opening print dialog
 - **Admin CSV export**: Downloads CSV with proper CRLF line endings for Excel compatibility
 - **Assignment reset**: Admin can reset individual routes or clear all assignments
 - **Route removal**: Users can remove their own route assignments, returning routes to available status
+
+### QR Code System
+
+The application generates QR codes for Google Maps directions:
+1. **Complex URL generation**: Parses route descriptions to create multi-waypoint Google Maps directions
+2. **URL shortening**: Uses TinyURL API (`https://tinyurl.com/api-create.php`) to create short URLs for simpler QR codes
+3. **Dual generation methods**: Client-side generation with `qrcode.js` library, fallback to `qrserver.com` API
+4. **Print optimization**: 100x100px QR codes positioned left of route descriptions
+5. **Error handling**: Falls back to original long URLs if shortening fails
 
 ## Common Development Tasks
 
@@ -109,6 +123,14 @@ Dark theme CSS in `styles.css` with responsive design. Key classes:
 - `.route-card`, `.confirmation-route-card` for route displays
 - `.user-assignment-info`, `.user-confirmation-info` for information cards with dark theme background
 - Always use CSS classes rather than inline styles to maintain consistent dark theme styling
+
+### Print Page Development
+When working with `print-routes.html`:
+- Uses compact, print-optimized layout with minimal spacing
+- QR codes are generated asynchronously with URL shortening
+- Auto-print functionality waits for `window.qrCodesReady` flag
+- Print styles use point sizes (10pt-12pt) and ensure proper page breaks
+- Font sizes: 12pt body, 11pt headers, 10pt descriptions/instructions
 
 ## Security Notes
 

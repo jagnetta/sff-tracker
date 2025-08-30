@@ -56,7 +56,8 @@ class ContextualHelp {
                     <h4>If You Already Have Routes</h4>
                     <ul>
                         <li>Your current assignments will show at the top</li>
-                        <li>Click "Print My Routes" to print them anytime</li>
+                        <li>Click "Print My Routes" to print them with QR codes for easy navigation</li>
+                        <li>Use your phone's camera to scan QR codes for instant Google Maps directions</li>
                         <li>Click "Select Additional Routes" to add more routes</li>
                         <li>Click the red "Remove" button to remove routes you don't want</li>
                     </ul>
@@ -123,9 +124,20 @@ class ContextualHelp {
                     <h3>Step 6: Print Your Routes</h3>
                     <ol>
                         <li>Your routes will show on the screen</li>
-                        <li>Click "Print Details" to print them</li>
+                        <li>Click "Print Details" to print them with QR codes</li>
+                        <li>The print page will automatically open with a QR code for each route</li>
+                        <li>The print dialog will open automatically</li>
                         <li>Keep this paper with you when doing the food drive</li>
                     </ol>
+
+                    <h4>Using QR Codes for Navigation</h4>
+                    <ul>
+                        <li>Each printed route includes a QR code (square barcode)</li>
+                        <li>Use your phone's camera to scan the QR code</li>
+                        <li>This opens Google Maps with turn-by-turn directions for your route</li>
+                        <li>Works with iPhone Camera app, Android Camera app, or any QR scanner</li>
+                        <li>Perfect for getting to your streets quickly and efficiently</li>
+                    </ul>
 
                     <div class="important-dates">
                         <h3>Important Dates to Remember</h3>

@@ -58,9 +58,18 @@ You need to know:
 ### Step 6: Print Your Routes
 1. Your routes will show on the screen
 2. Click "Print Details" to print them
-3. Keep this paper with you when doing the food drive
+3. The print page will automatically open with QR codes for each route
+4. The print dialog will open automatically
+5. Keep this paper with you when doing the food drive
 
 ## Special Features You Can Use
+
+### QR Codes for Easy Navigation
+- Each printed route includes a QR code (square barcode)
+- Use your phone's camera to scan the QR code
+- This opens Google Maps with turn-by-turn directions for your route
+- Perfect for getting to your streets quickly and efficiently
+- Works with iPhone Camera app, Android Camera app, or any QR scanner
 
 ### View Routes on Google Maps
 - Next to each route, click the 🗺️ button
@@ -72,10 +81,13 @@ You need to know:
 - Click the red "Remove" button next to a route
 - The route will go back for other people to pick
 
-### Print Your Routes Anytime
-- Go back to the main page
-- Click "Print My Routes" 
-- This prints all your routes with the important dates
+### Enhanced Print Features
+- Go back to the main page and click "Print My Routes"
+- The print page includes QR codes for each route
+- QR codes provide instant Google Maps navigation on your phone
+- Print layout is optimized for easy reading and minimal paper use
+- Print dialog opens automatically when the page loads
+- All important dates and instructions are included
 
 ## Important Things to Remember
 
@@ -99,8 +111,9 @@ You need to know:
 1. Pick routes near your house so it's easier to get there
 2. Don't pick too many routes if you're new to this
 3. Print your routes and keep the paper safe
-4. Use Google Maps to plan the best way to visit all your streets
-5. Remember both important dates - October 25-26th and November 1st
+4. Use the QR codes on your printed routes to get instant directions on your phone
+5. Scan QR codes with your phone's camera - no special app needed
+6. Remember both important dates - October 25-26th and November 1st
 
 ## What Happens Next
 1. Get your door hangars from your Unit Leaders

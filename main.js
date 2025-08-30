@@ -209,14 +209,13 @@ function printUserAssignments() {
         return;
     }
     
-    // Group routes by region
+    // Group routes by region to determine primary region
     const routesByRegion = {};
-    let totalFlyers = 0;
     
     userRoutes.forEach(routeId => {
         const route = routeTracker.findRouteById(routeId);
         if (route) {
-            // Find region
+            // Find region for this route
             let routeRegion = null;
             for (const region in routeData) {
                 if (routeData[region].find(r => r.routeId === routeId)) {
@@ -230,175 +229,25 @@ function printUserAssignments() {
                     routesByRegion[routeRegion] = [];
                 }
                 routesByRegion[routeRegion].push(route);
-                totalFlyers += route.flyerCount;
             }
         }
     });
     
-    // Create printable HTML content
-    let printContent = `
-        <html>
-        <head>
-            <title>Route Assignments - ${userInfo.lastName} - ${userInfo.unit}</title>
-            <style>
-                @media print {
-                    body { margin: 0.5in; }
-                    .page-break { page-break-before: always; }
-                    .no-break { page-break-inside: avoid; }
-                }
-                body { 
-                    font-family: Arial, sans-serif; 
-                    margin: 15px; 
-                    line-height: 1.3; 
-                    font-size: 12px;
-                }
-                .header { 
-                    text-align: center; 
-                    border-bottom: 2px solid #333; 
-                    padding-bottom: 8px; 
-                    margin-bottom: 15px; 
-                }
-                .header h1 { 
-                    font-size: 18px; 
-                    margin: 0 0 5px 0; 
-                }
-                .header h2 { 
-                    font-size: 16px; 
-                    margin: 0 0 5px 0; 
-                }
-                .info-grid {
-                    display: flex;
-                    justify-content: space-between;
-                    margin-bottom: 15px;
-                    gap: 15px;
-                }
-                .info-box { 
-                    background: #f8f8f8; 
-                    padding: 10px; 
-                    border-radius: 4px; 
-                    flex: 1;
-                    border: 1px solid #ddd;
-                }
-                .info-box h3 {
-                    font-size: 14px;
-                    margin: 0 0 8px 0;
-                    color: #2c5aa0;
-                }
-                .info-box p {
-                    margin: 3px 0;
-                    font-size: 11px;
-                }
-                .region { 
-                    margin-bottom: 20px; 
-                    page-break-inside: avoid;
-                }
-                .region h2 { 
-                    color: #2c5aa0; 
-                    border-bottom: 1px solid #ccc; 
-                    padding-bottom: 3px;
-                    font-size: 15px;
-                    margin: 0 0 10px 0;
-                }
-                .route { 
-                    margin-bottom: 12px; 
-                    padding: 8px; 
-                    border-left: 3px solid #2c5aa0; 
-                    background: #f9f9f9; 
-                    page-break-inside: avoid;
-                }
-                .route-header { 
-                    font-weight: bold; 
-                    color: #2c5aa0; 
-                    font-size: 13px;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                }
-                .route-flyers { 
-                    color: #28a745; 
-                    font-weight: bold; 
-                    font-size: 12px;
-                }
-                .route-desc { 
-                    margin-top: 4px; 
-                    color: #555; 
-                    font-size: 11px;
-                    line-height: 1.3;
-                }
-                .instructions-box {
-                    background: #fff3cd;
-                    border: 2px solid #ffeaa7;
-                    padding: 12px;
-                    border-radius: 5px;
-                    margin-top: 15px;
-                }
-                .instructions-box h3 {
-                    color: #856404;
-                    margin: 0 0 8px 0;
-                    font-size: 14px;
-                }
-                .instructions-box p {
-                    margin: 0;
-                    font-size: 12px;
-                    font-weight: bold;
-                    color: #856404;
-                }
-            </style>
-        </head>
-        <body>
-            <div class="header">
-                <h1>Taunton Scouting for Food Drive</h1>
-                <h2>Route Assignments</h2>
-                <p><strong>Assigned to:</strong> ${userInfo.lastName} - ${userInfo.unit} | <strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
-            </div>
-            
-            <div class="info-grid">
-                <div class="info-box">
-                    <h3>Assignment Summary</h3>
-                    <p><strong>Total Routes:</strong> ${userRoutes.length}</p>
-                    <p><strong>Total Flyers:</strong> ${totalFlyers.toLocaleString()}</p>
-                </div>
-                
-                <div class="info-box">
-                    <h3>Important Dates</h3>
-                    <p><strong>Door Hanger Distribution:</strong><br>Oct. 25-26th, 9 AM - 3 PM</p>
-                    <p><strong>Food Pickup:</strong><br>Sat., Nov. 1st, 9 AM - 1 PM</p>
-                    <p><strong>Drop Off:</strong> Matthew Mission Food Pantry<br>76 Church Green, Taunton, MA 02780</p>
-                </div>
-            </div>
-    `;
+    // Use the first region found (most routes), or fallback to CENTER
+    const primaryRegion = Object.keys(routesByRegion)[0] || 'CENTER';
     
-    // Add routes by region
-    Object.keys(routesByRegion).forEach(region => {
-        printContent += `<div class="region"><h2>${region} Region</h2>`;
-        routesByRegion[region].forEach(route => {
-            printContent += `
-                <div class="route">
-                    <div class="route-header">
-                        <span>Route ${route.routeId} - ${route.name}</span>
-                        <span class="route-flyers">${route.flyerCount} flyers</span>
-                    </div>
-                    <div class="route-desc">${route.description}</div>
-                </div>
-            `;
-        });
-        printContent += '</div>';
+    // Create URL parameters for the print page
+    const params = new URLSearchParams({
+        region: primaryRegion,
+        routes: encodeURIComponent(JSON.stringify(userRoutes)),
+        user: encodeURIComponent(JSON.stringify(userInfo))
     });
     
-    // Add Important Route Instructions after all routes
-    printContent += `
-            <div class="instructions-box">
-                <h3>⚠️ Important Route Instructions</h3>
-                <p>Please pay close attention to odd numbers, even numbers, cross streets, etc. where routes begin and end. "All" means both sides of street. This is to avoid overlapping.</p>
-            </div>
-    `;
+    // Open print page in new tab
+    const printWindow = window.open(`print-routes.html?${params.toString()}`, '_blank');
     
-    printContent += '</body></html>';
-    
-    // Open print dialog
-    const printWindow = window.open('', '_blank');
-    printWindow.document.write(printContent);
-    printWindow.document.close();
-    printWindow.focus();
-    printWindow.print();
+    // Optional: Focus the new window
+    if (printWindow) {
+        printWindow.focus();
+    }
 }

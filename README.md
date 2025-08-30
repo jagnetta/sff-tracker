@@ -32,7 +32,9 @@ The Taunton Scouting for Food Drive Route Selector processes route data from a C
 - **Route Removal**: Users can remove their own route assignments, returning routes to available status
 - **Additional Route Selection**: Option to select more routes from different regions
 - **Assignment Summary**: Total routes and flyer counts for user's assignments
-- **Print Functionality**: Professional print-ready format with Important Dates & Instructions
+- **Enhanced Print System**: Optimized print layout with QR codes for Google Maps navigation
+- **QR Code Integration**: Scannable QR codes for each route that open detailed Google Maps directions
+- **Auto-Print Feature**: Print dialog automatically opens when accessing route details for printing
 
 ### Administrative Features
 
@@ -76,7 +78,9 @@ sff-tracker/
 ├── routes.html             # Route selection interface (available routes only)
 ├── confirm-routes.html     # Route selection confirmation page
 ├── details.html            # Final assignment confirmation and details
+├── print-routes.html       # Optimized print layout with QR codes and auto-print
 ├── admin-dashboard.html    # Complete administrative interface
+├── user-guide.html         # Interactive help documentation
 ├── styles.css              # Comprehensive dark theme styling
 ├── auth.js                 # Authentication and session management
 ├── user-info.js            # User information collection logic
@@ -182,7 +186,7 @@ No installation or build process required:
    - View existing assignments on return visits
    - Remove unwanted route assignments (returns routes to available status)
    - Select additional routes from different regions
-   - Print route assignments with important dates and instructions
+   - Print route assignments with QR codes for mobile navigation and important dates
 
 ### For Administrators
 1. **Access**: Open `index.html` in web browser
@@ -222,9 +226,10 @@ No installation or build process required:
 ### Frontend Technologies
 - **HTML5**: Semantic markup with accessibility considerations
 - **CSS3**: Modern dark theme with responsive design using Flexbox/Grid
-- **Vanilla JavaScript**: ES6+ features, modular design, no external dependencies
+- **Vanilla JavaScript**: ES6+ features, modular design
+- **External Dependencies**: QRCode.js library for client-side QR generation, TinyURL API for URL shortening
 - **Local Storage APIs**: For persistent route assignment tracking
-- **Print Optimization**: Dedicated print styles for route information
+- **Print Optimization**: Dedicated print styles with QR codes for route navigation
 
 ### Performance Optimizations
 - **Lightweight**: No external libraries or frameworks

@@ -54,6 +54,54 @@ function displaySummary(region, routes) {
     `;
 }
 
+function generateGoogleMapsUrl(route) {
+    // Parse the route description to extract street names
+    const description = route.description;
+    
+    // Split by " - All //" or " - All" to get individual street segments
+    const segments = description.split(/ - All(?:\s*\/\/|$)/).map(s => s.trim()).filter(s => s.length > 0);
+    
+    if (segments.length === 0) {
+        // Fallback to basic search
+        return `https://www.google.com/maps/search/${encodeURIComponent(route.name + ' Taunton MA')}`;
+    }
+    
+    // Create a directions URL connecting the street segments
+    // Start with the first street segment, then create waypoints for others
+    let waypoints = [];
+    
+    segments.forEach(segment => {
+        // Clean up the segment - remove parenthetical descriptions
+        let cleanSegment = segment.replace(/\([^)]+\)/g, '').trim();
+        
+        // Add "Taunton MA" to each segment
+        waypoints.push(encodeURIComponent(cleanSegment + ', Taunton, MA'));
+    });
+    
+    if (waypoints.length === 1) {
+        // Single location search - let Google Maps center on the street automatically
+        return `https://www.google.com/maps/search/${waypoints[0]}`;
+    } else {
+        // Multi-point directions - Google will automatically center on the route
+        const origin = waypoints[0];
+        const destination = waypoints[waypoints.length - 1];
+        const intermediate = waypoints.slice(1, -1);
+        
+        let url = `https://www.google.com/maps/dir/${origin}`;
+        
+        if (intermediate.length > 0) {
+            url += '/' + intermediate.join('/');
+        }
+        
+        if (waypoints.length > 1) {
+            url += '/' + destination;
+        }
+        
+        // Remove the fixed coordinates - let Google Maps center automatically on the route
+        return url;
+    }
+}
+
 function displayRouteDetails(routes) {
     const routeDetails = document.getElementById('routeDetails');
     
@@ -62,7 +110,11 @@ function displayRouteDetails(routes) {
         return;
     }
     
-    const detailsHTML = routes.map(route => `
+    const detailsHTML = routes.map(route => {
+        const mapUrl = generateGoogleMapsUrl(route);
+        const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&format=png&data=${encodeURIComponent(mapUrl)}`;
+        
+        return `
         <div class="route-detail-card">
             <div class="route-detail-header">
                 <div>
@@ -76,16 +128,44 @@ function displayRouteDetails(routes) {
                 <div class="route-detail-description">
                     ${route.description}
                 </div>
+                <div class="route-map-section">
+                    <div class="route-qr-code">
+                        <img src="${qrApiUrl}" width="100" height="100" alt="QR Code for Route Map" />
+                    </div>
+                    <div class="route-map-info">
+                        <div><strong>🗺️ View Map</strong></div>
+                        <div>Scan QR code to view route on Google Maps</div>
+                    </div>
+                </div>
             </div>
         </div>
-    `).join('');
+        `;
+    }).join('');
     
     routeDetails.innerHTML = detailsHTML;
 }
 
 // Utility functions for actions
 function printDetails() {
-    window.print();
+    // Get current session data
+    const selectedRegion = sessionStorage.getItem('selectedRegion');
+    const selectedRouteIds = JSON.parse(sessionStorage.getItem('selectedRoutes') || '[]');
+    const userInfo = JSON.parse(sessionStorage.getItem('userInfo') || '{}');
+    
+    // Create URL parameters for the print page
+    const params = new URLSearchParams({
+        region: selectedRegion,
+        routes: encodeURIComponent(JSON.stringify(selectedRouteIds)),
+        user: encodeURIComponent(JSON.stringify(userInfo))
+    });
+    
+    // Open print page in new tab
+    const printWindow = window.open(`print-routes.html?${params.toString()}`, '_blank');
+    
+    // Optional: Focus the new window
+    if (printWindow) {
+        printWindow.focus();
+    }
 }
 
 function downloadDetails() {
