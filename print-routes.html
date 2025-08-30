@@ -23,6 +23,7 @@
         
         
         /* Print-efficient layout styles */
+        
         .print-efficient-container {
             max-width: 100%;
             margin: 0;
@@ -109,6 +110,43 @@
             margin-bottom: 0;
         }
         
+        .help-info-box {
+            background: #2d2d2d;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            line-height: 1.4;
+            margin-top: 15px;
+            page-break-inside: avoid;
+        }
+        
+        .help-info-title {
+            font-weight: bold;
+            color: #4a9eff;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        .help-info-content p {
+            color: #e0e0e0;
+            margin: 0 0 6px 0;
+        }
+        
+        .help-info-list {
+            color: #e0e0e0;
+            margin: 6px 0 8px 20px;
+            padding: 0;
+        }
+        
+        .help-info-list li {
+            margin-bottom: 4px;
+        }
+        
+        .help-info-footer {
+            font-weight: 500;
+            margin-top: 8px !important;
+        }
+        
         
         @media print {
             * {
@@ -121,7 +159,7 @@
                 color: black !important;
                 padding: 0 !important;
                 margin: 0 !important;
-                font-size: 16pt !important;
+                font-size: 15pt !important;
                 line-height: 1.4 !important;
                 height: auto !important;
                 min-height: 0 !important;
@@ -160,7 +198,7 @@
             
             .compact-info {
                 color: black !important;
-                font-size: 15pt !important;
+                font-size: 14pt !important;
                 line-height: 1.4 !important;
             }
             
@@ -208,14 +246,14 @@
             
             .route-header {
                 color: black !important;
-                font-size: 15pt !important;
+                font-size: 14pt !important;
                 font-weight: bold !important;
                 margin-bottom: 2px !important;
             }
             
             .route-description {
                 color: black !important;
-                font-size: 14pt !important;
+                font-size: 13pt !important;
                 line-height: 1.4 !important;
             }
             
@@ -224,7 +262,7 @@
                 border: 2px solid #444 !important;
                 border-radius: 6px !important;
                 padding: 14px !important;
-                font-size: 14pt !important;
+                font-size: 13pt !important;
                 line-height: 1.4 !important;
                 page-break-inside: avoid !important;
                 page-break-after: avoid !important;
@@ -240,6 +278,49 @@
             
             .instruction-line:last-child {
                 margin-bottom: 0 !important;
+            }
+            
+            .help-info-box {
+                background: white !important;
+                border: 2px solid #444 !important;
+                border-radius: 6px !important;
+                padding: 14px !important;
+                font-size: 13pt !important;
+                line-height: 1.4 !important;
+                page-break-inside: avoid !important;
+                page-break-after: avoid !important;
+                margin-bottom: 12px !important;
+                margin-top: 0 !important;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+            }
+            
+            .help-info-title {
+                color: black !important;
+                font-weight: bold !important;
+                margin-bottom: 8px !important;
+                font-size: 14pt !important;
+            }
+            
+            .help-info-content p {
+                color: black !important;
+                margin: 0 0 6px 0 !important;
+            }
+            
+            .help-info-list {
+                color: black !important;
+                margin: 6px 0 8px 20px !important;
+                padding: 0 !important;
+            }
+            
+            .help-info-list li {
+                color: black !important;
+                margin-bottom: 4px !important;
+            }
+            
+            .help-info-footer {
+                color: black !important;
+                font-weight: 500 !important;
+                margin-top: 8px !important;
             }
             
             .route-qr-code canvas,
@@ -352,6 +433,14 @@
                 <!-- Route Details - Most important content -->
                 <div id="routeDetails" class="route-list">
                     <!-- Route details will be populated by JavaScript -->
+                </div>
+
+                <!-- How you can help information box -->
+                <div class="help-info-box">
+                    <div class="help-info-title">How you can help!</div>
+                    <div class="help-info-content">
+                        <p>Make a note on this paper if any of the street names are misspelled, or if any new streets have been added along the route. Pass the notes back to the Unit Leader at the next meeting.</p>
+                    </div>
                 </div>
             </div>
         </main>
