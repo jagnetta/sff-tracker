@@ -51,18 +51,32 @@
             margin-bottom: 8px;
             padding: 8px;
             border-radius: 4px;
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
+            width: 100%;
+        }
+        
+        .route-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+        
+        .route-qr-cell {
+            width: 110px;
+            vertical-align: middle;
+            padding-right: 10px;
+            text-align: center;
+        }
+        
+        .route-info-cell {
+            vertical-align: top;
         }
         
         .route-qr-code {
-            flex-shrink: 0;
+            display: block;
         }
         
         .route-info {
-            flex: 1;
-            min-width: 0;
+            width: 100%;
         }
         
         .route-header {
@@ -107,7 +121,7 @@
                 color: black !important;
                 padding: 0 !important;
                 margin: 0 !important;
-                font-size: 14pt !important;
+                font-size: 16pt !important;
                 line-height: 1.4 !important;
                 height: auto !important;
                 min-height: 0 !important;
@@ -144,7 +158,7 @@
             
             .compact-info {
                 color: black !important;
-                font-size: 13pt !important;
+                font-size: 15pt !important;
                 line-height: 1.4 !important;
             }
             
@@ -159,30 +173,44 @@
                 margin-bottom: 4px !important;
                 padding: 4px !important;
                 page-break-inside: avoid;
-                display: flex !important;
-                gap: 8px !important;
-                align-items: flex-start !important;
+                width: 100% !important;
+            }
+            
+            .route-table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                table-layout: fixed !important;
+            }
+            
+            .route-qr-cell {
+                width: 110px !important;
+                vertical-align: middle !important;
+                padding-right: 8px !important;
+                text-align: center !important;
+            }
+            
+            .route-info-cell {
+                vertical-align: top !important;
             }
             
             .route-qr-code {
-                flex-shrink: 0 !important;
+                display: block !important;
             }
             
             .route-info {
-                flex: 1 !important;
-                min-width: 0 !important;
+                width: 100% !important;
             }
             
             .route-header {
                 color: black !important;
-                font-size: 13pt !important;
+                font-size: 15pt !important;
                 font-weight: bold !important;
                 margin-bottom: 2px !important;
             }
             
             .route-description {
                 color: black !important;
-                font-size: 12pt !important;
+                font-size: 14pt !important;
                 line-height: 1.4 !important;
             }
             
@@ -190,7 +218,7 @@
                 background: #f8f9fa !important;
                 border: 1px solid #ddd !important;
                 padding: 8px !important;
-                font-size: 12pt !important;
+                font-size: 14pt !important;
                 line-height: 1.4 !important;
                 page-break-inside: avoid !important;
                 page-break-after: avoid !important;
@@ -300,12 +328,7 @@
                     </div>
                 </div>
 
-                <!-- Route Details - Most important content -->
-                <div id="routeDetails" class="route-list">
-                    <!-- Route details will be populated by JavaScript -->
-                </div>
-
-                <!-- Compact Instructions Footer -->
+                <!-- Important Information - moved to position 2 -->
                 <div class="compact-instructions">
                     <div class="instruction-line">
                         <strong>Dates:</strong> Door Hangers Oct 25-26 (9AM-3PM) • Food Pickup Nov 1 (9AM-1PM)
@@ -316,6 +339,11 @@
                     <div class="instruction-line">
                         <strong>Route Notes:</strong> Pay attention to odd/even numbers and cross streets. "All" means both sides of street.
                     </div>
+                </div>
+
+                <!-- Route Details - Most important content -->
+                <div id="routeDetails" class="route-list">
+                    <!-- Route details will be populated by JavaScript -->
                 </div>
             </div>
         </main>
@@ -405,13 +433,21 @@
                 
                 return `
                 <div class="route-item">
-                    <div class="route-qr-code">
-                        <canvas id="${qrId}" width="100" height="100"></canvas>
-                    </div>
-                    <div class="route-info">
-                        <div class="route-header">Route ${route.routeId} - ${route.name} (${route.flyerCount} flyers)</div>
-                        <div class="route-description">${route.description}</div>
-                    </div>
+                    <table class="route-table">
+                        <tr>
+                            <td class="route-qr-cell">
+                                <div class="route-qr-code">
+                                    <canvas id="${qrId}" width="100" height="100"></canvas>
+                                </div>
+                            </td>
+                            <td class="route-info-cell">
+                                <div class="route-info">
+                                    <div class="route-header">Route ${route.routeId} - ${route.name} (${route.flyerCount} flyers)</div>
+                                    <div class="route-description">${route.description}</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 `;
             }).join('');
