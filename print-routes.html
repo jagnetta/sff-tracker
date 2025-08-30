@@ -196,6 +196,60 @@
             }
             
         }
+        
+        /* QR Code Progress Meter */
+        .qr-progress-container {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2d2d2d;
+            border: 1px solid #4a9eff;
+            border-radius: 8px;
+            padding: 15px;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            min-width: 300px;
+        }
+        
+        .qr-progress-content {
+            text-align: center;
+        }
+        
+        .qr-progress-text {
+            color: #e0e0e0;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .qr-progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #1a1a1a;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        
+        .qr-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4a9eff, #74b9ff);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .qr-progress-count {
+            color: #b0b0b0;
+            font-size: 0.8em;
+        }
+        
+        @media print {
+            .qr-progress-container {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -230,6 +284,16 @@
             </div>
         </main>
 
+        <!-- QR Code Generation Progress -->
+        <div id="qrProgress" class="qr-progress-container" style="display: none;">
+            <div class="qr-progress-content">
+                <div class="qr-progress-text">Generating QR codes for maps...</div>
+                <div class="qr-progress-bar">
+                    <div id="qrProgressBar" class="qr-progress-fill"></div>
+                </div>
+                <div id="qrProgressCount" class="qr-progress-count">0 / 0</div>
+            </div>
+        </div>
 
     </div>
 
@@ -322,6 +386,30 @@
             generateQRCodes(routes);
         }
         
+        // Update progress meter
+        function updateProgress(current, total, text = 'Generating QR codes for maps...') {
+            const progressContainer = document.getElementById('qrProgress');
+            const progressBar = document.getElementById('qrProgressBar');
+            const progressCount = document.getElementById('qrProgressCount');
+            const progressText = progressContainer.querySelector('.qr-progress-text');
+            
+            if (total > 0) {
+                progressContainer.style.display = 'block';
+                progressText.textContent = text;
+                progressCount.textContent = `${current} / ${total}`;
+                const percentage = (current / total) * 100;
+                progressBar.style.width = `${percentage}%`;
+            } else {
+                progressContainer.style.display = 'none';
+            }
+        }
+        
+        // Hide progress meter
+        function hideProgress() {
+            const progressContainer = document.getElementById('qrProgress');
+            progressContainer.style.display = 'none';
+        }
+        
         // Generate QR codes with URL shortening
         async function generateQRCodes(routes) {
             if (!routes || routes.length === 0) {
@@ -332,6 +420,9 @@
             console.log(`Generating QR codes for ${routes.length} routes...`);
             window.qrCodesReady = false; // Reset flag
             
+            // Show initial progress
+            updateProgress(0, routes.length);
+            
             // Check if QRCode library is available
             if (typeof QRCode === 'undefined') {
                 console.log('QRCode library not available, using fallback API method');
@@ -339,6 +430,10 @@
                 for (let index = 0; index < routes.length; index++) {
                     const route = routes[index];
                     console.log(`Processing route ${index + 1}/${routes.length}: ${route.routeId}`);
+                    
+                    // Update progress
+                    updateProgress(index + 1, routes.length, `Processing route ${index + 1} of ${routes.length}...`);
+                    
                     const longUrl = generateGoogleMapsUrl(route);
                     const shortUrl = await shortenUrl(longUrl);
                     const qrId = `qr-${route.routeId}-${index}`;
@@ -356,6 +451,7 @@
                     }
                 }
                 console.log('All QR codes processed (API method)');
+                hideProgress(); // Hide progress when complete
                 window.qrCodesReady = true; // Set ready flag after all are processed
                 return;
             }
@@ -364,6 +460,10 @@
             for (let index = 0; index < routes.length; index++) {
                 const route = routes[index];
                 console.log(`Processing route ${index + 1}/${routes.length}: ${route.routeId}`);
+                
+                // Update progress
+                updateProgress(index + 1, routes.length, `Processing route ${index + 1} of ${routes.length}...`);
+                
                 const longUrl = generateGoogleMapsUrl(route);
                 const shortUrl = await shortenUrl(longUrl);
                 const qrId = `qr-${route.routeId}-${index}`;
@@ -384,27 +484,54 @@
                 }
             }
             console.log('All QR codes processed (client-side method)');
+            hideProgress(); // Hide progress when complete
             window.qrCodesReady = true; // Set ready flag after all are processed
         }
 
         // Display compact information
-        function displayCompactInfo(region, routes, userInfo) {
+        function displayCompactInfo(routes, userInfo) {
             const compactInfo = document.getElementById('compactInfo');
             const totalFlyers = routes.reduce((sum, route) => sum + route.flyerCount, 0);
             const routeCount = routes.length;
             
+            // Determine which regions the routes are from
+            const routesByRegion = {};
+            routes.forEach(route => {
+                // Find which region this route belongs to
+                for (const regionName in routeData) {
+                    if (routeData[regionName].find(r => r.routeId === route.routeId)) {
+                        if (!routesByRegion[regionName]) {
+                            routesByRegion[regionName] = 0;
+                        }
+                        routesByRegion[regionName]++;
+                        break;
+                    }
+                }
+            });
+            
+            // Create region display text
+            const regionNames = Object.keys(routesByRegion);
+            let regionText;
+            if (regionNames.length === 1) {
+                regionText = `${regionNames[0]} Region`;
+            } else {
+                regionText = `${regionNames.join(', ')} Regions`;
+            }
+            
             compactInfo.innerHTML = `
-                <strong>${userInfo.lastName}</strong> • ${userInfo.unit} • ${region} Region • ${routeCount} ${routeCount === 1 ? 'Route' : 'Routes'} • ${totalFlyers.toLocaleString()} Flyers • ${new Date().toLocaleDateString()}
+                <strong>${userInfo.lastName}</strong> • ${userInfo.unit} • ${regionText} • ${routeCount} ${routeCount === 1 ? 'Route' : 'Routes'} • ${totalFlyers.toLocaleString()} Flyers • ${new Date().toLocaleDateString()}
             `;
         }
 
         // Auto-print function that waits for QR codes
         function autoPrint() {
             console.log('Auto-print initiated, waiting for QR codes...');
+            let printTriggered = false; // Flag to ensure print only happens once
             
             // Check if QR codes are ready
             const checkReady = setInterval(() => {
-                if (window.qrCodesReady) {
+                if (window.qrCodesReady && !printTriggered) {
+                    printTriggered = true;
                     clearInterval(checkReady);
                     console.log('QR codes ready, opening print dialog');
                     setTimeout(() => {
@@ -415,9 +542,12 @@
             
             // Timeout fallback (in case something goes wrong)
             setTimeout(() => {
-                clearInterval(checkReady);
-                console.log('Timeout reached, printing anyway');
-                window.print();
+                if (!printTriggered) {
+                    printTriggered = true;
+                    clearInterval(checkReady);
+                    console.log('Timeout reached, printing anyway');
+                    window.print();
+                }
             }, 15000); // 15 second timeout for URL shortening
         }
 
@@ -455,11 +585,19 @@
                     return;
                 }
                 
-                // Get route data for selected routes
-                const allRoutes = routeData[region] || [];
-                console.log('All routes for region:', allRoutes.length);
-                const selectedRoutes = allRoutes.filter(route => routeIds.includes(route.routeId));
-                console.log('Selected routes:', selectedRoutes.length);
+                // Get route data for selected routes from ALL regions (users can have routes from multiple regions)
+                const selectedRoutes = [];
+                routeIds.forEach(routeId => {
+                    // Search across all regions for each route
+                    for (const regionName in routeData) {
+                        const route = routeData[regionName].find(r => r.routeId === routeId);
+                        if (route) {
+                            selectedRoutes.push(route);
+                            break; // Found the route, no need to check other regions
+                        }
+                    }
+                });
+                console.log('Found routes across all regions:', selectedRoutes.length);
                 
                 if (selectedRoutes.length === 0) {
                     console.log('No routes found matching the selected IDs');
@@ -468,7 +606,7 @@
                 }
                 
                 // Display all the information in compact format
-                displayCompactInfo(region, selectedRoutes, user);
+                displayCompactInfo(selectedRoutes, user);
                 displayRouteDetails(selectedRoutes);
                 
                 // Auto-open print dialog after content is loaded

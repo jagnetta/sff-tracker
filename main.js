@@ -234,6 +234,7 @@ function printUserAssignments() {
     });
     
     // Use the first region found (most routes), or fallback to CENTER
+    // Note: The print page now searches all regions, so this is mainly for compatibility
     const primaryRegion = Object.keys(routesByRegion)[0] || 'CENTER';
     
     // Create URL parameters for the print page

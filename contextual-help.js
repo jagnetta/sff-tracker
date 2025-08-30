@@ -41,12 +41,12 @@ class ContextualHelp {
                     <ol>
                         <li>Look at the 6 areas:
                             <ul>
-                                <li>CENTER</li>
-                                <li>WEIR</li>
-                                <li>OAKLAND</li>
-                                <li>WHITTENTON</li>
-                                <li>EAST TAUNTON</li>
-                                <li>WESTVILLE</li>
+                                <li>Center</li>
+                                <li>East Taunton</li>
+                                <li>Oakland</li>
+                                <li>Weir</li>
+                                <li>Westville</li>
+                                <li>Whittenton</li>
                             </ul>
                         </li>
                         <li>Pick the area closest to your home</li>

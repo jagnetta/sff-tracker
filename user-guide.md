@@ -30,12 +30,12 @@ You need to know:
 
 ### Step 3: Pick Your Area
 1. Look at the 6 areas:
-   - CENTER
-   - WEIR  
-   - OAKLAND
-   - WHITTENTON
-   - EAST TAUNTON
-   - WESTVILLE
+   - Center
+   - East Taunton
+   - Oakland
+   - Weir
+   - Westville
+   - Whittenton
 2. Pick the area closest to your home
 3. Click "View Routes"
 

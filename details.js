@@ -147,15 +147,45 @@ function displayRouteDetails(routes) {
 
 // Utility functions for actions
 function printDetails() {
-    // Get current session data
-    const selectedRegion = sessionStorage.getItem('selectedRegion');
-    const selectedRouteIds = JSON.parse(sessionStorage.getItem('selectedRoutes') || '[]');
+    // Get user info and all assigned routes (not just session routes)
     const userInfo = JSON.parse(sessionStorage.getItem('userInfo') || '{}');
+    const allUserRoutes = routeTracker.getUserAssignments(userInfo.lastName, userInfo.unit);
+    
+    if (allUserRoutes.length === 0) {
+        alert('No route assignments to print.');
+        return;
+    }
+    
+    // Group routes by region to determine primary region for compatibility
+    const routesByRegion = {};
+    allUserRoutes.forEach(routeId => {
+        const route = routeTracker.findRouteById(routeId);
+        if (route) {
+            // Find region for this route
+            let routeRegion = null;
+            for (const region in routeData) {
+                if (routeData[region].find(r => r.routeId === routeId)) {
+                    routeRegion = region;
+                    break;
+                }
+            }
+            
+            if (routeRegion) {
+                if (!routesByRegion[routeRegion]) {
+                    routesByRegion[routeRegion] = [];
+                }
+                routesByRegion[routeRegion].push(route);
+            }
+        }
+    });
+    
+    // Use the first region found (most routes), or fallback to CENTER
+    const primaryRegion = Object.keys(routesByRegion)[0] || 'CENTER';
     
     // Create URL parameters for the print page
     const params = new URLSearchParams({
-        region: selectedRegion,
-        routes: encodeURIComponent(JSON.stringify(selectedRouteIds)),
+        region: primaryRegion,
+        routes: encodeURIComponent(JSON.stringify(allUserRoutes)),
         user: encodeURIComponent(JSON.stringify(userInfo))
     });
     
