@@ -164,7 +164,7 @@ function confirmSelection() {
     }
     
     // Show confirmation dialog
-    const confirmMessage = `Are you sure you want to confirm the selection of ${selectedRouteIds.length} route(s)? This action cannot be undone and these routes will no longer be available for other users.`;
+    const confirmMessage = `Are you sure you want to confirm the selection of ${selectedRouteIds.length} route(s)? These routes will no longer be available for other users.`;
     
     if (confirm(confirmMessage)) {
         // Assign routes to user
