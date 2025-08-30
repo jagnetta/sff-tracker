@@ -19,7 +19,6 @@
         .print-container {
             max-width: 1200px;
             margin: 0 auto;
-            min-height: 100vh;
         }
         
         
@@ -98,24 +97,41 @@
         
         
         @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            
             body {
                 background: white !important;
                 color: black !important;
-                padding: 5px !important;
+                padding: 0 !important;
                 margin: 0 !important;
-                font-size: 12pt !important;
-                line-height: 1.3 !important;
+                font-size: 14pt !important;
+                line-height: 1.4 !important;
+                height: auto !important;
+                min-height: 0 !important;
             }
             
             .print-container {
                 max-width: none !important;
                 margin: 0 !important;
-                padding: 0 !important;
+                padding: 10px !important;
+                height: auto !important;
+                min-height: 0 !important;
             }
             
             .print-efficient-container {
                 margin: 0 !important;
                 padding: 0 !important;
+                height: auto !important;
+                min-height: 0 !important;
+                page-break-after: avoid !important;
+            }
+            
+            html {
+                height: auto !important;
+                min-height: 0 !important;
             }
             
             .compact-header {
@@ -128,12 +144,13 @@
             
             .compact-info {
                 color: black !important;
-                font-size: 11pt !important;
-                line-height: 1.3 !important;
+                font-size: 13pt !important;
+                line-height: 1.4 !important;
             }
             
             .route-list {
                 margin-bottom: 8px !important;
+                page-break-after: avoid !important;
             }
             
             .route-item {
@@ -158,24 +175,26 @@
             
             .route-header {
                 color: black !important;
-                font-size: 11pt !important;
+                font-size: 13pt !important;
                 font-weight: bold !important;
                 margin-bottom: 2px !important;
             }
             
             .route-description {
                 color: black !important;
-                font-size: 10pt !important;
-                line-height: 1.3 !important;
+                font-size: 12pt !important;
+                line-height: 1.4 !important;
             }
             
             .compact-instructions {
                 background: #f8f9fa !important;
                 border: 1px solid #ddd !important;
-                padding: 6px !important;
-                font-size: 10pt !important;
-                line-height: 1.3 !important;
-                page-break-inside: avoid;
+                padding: 8px !important;
+                font-size: 12pt !important;
+                line-height: 1.4 !important;
+                page-break-inside: avoid !important;
+                page-break-after: avoid !important;
+                margin-bottom: 0 !important;
             }
             
             .instruction-line {
@@ -193,6 +212,23 @@
                 display: block !important;
                 visibility: visible !important;
                 opacity: 1 !important;
+            }
+            
+            /* Prevent extra pages and ensure content ends properly */
+            main {
+                page-break-after: avoid !important;
+                overflow: hidden !important;
+            }
+            
+            .print-container::after,
+            main::after,
+            .print-efficient-container::after {
+                content: "" !important;
+                display: block !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                page-break-after: avoid !important;
             }
             
         }
