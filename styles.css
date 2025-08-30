@@ -27,49 +27,62 @@ header {
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
 }
 
 .header-with-logos {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: block;
     margin-bottom: 20px;
     width: 100%;
-    min-height: 120px;
+    position: relative;
 }
 
 .logo {
-    width: 110px;
-    height: 110px;
+    position: absolute;
+    top: 15px;
+    bottom: 15px;
+    width: auto;
+    height: calc(100% - 30px);
+    aspect-ratio: 1;
     border-radius: 50%;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    flex-shrink: 0;
+    z-index: 1;
+    object-fit: cover;
+}
+
+.logo:first-child {
+    left: 15px;
+}
+
+.logo:last-child {
+    right: 15px;
 }
 
 .header-text {
     text-align: center;
-    flex-shrink: 0;
-    flex-grow: 1;
-    max-width: 800px;
-    margin: 0 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    margin: 0 170px;
+    position: relative;
+    z-index: 2;
 }
 
 /* Responsive adjustments for bracketing logos */
 @media (max-width: 768px) {
-    .header-with-logos {
-        min-height: 100px;
+    .logo {
+        top: 10px;
+        bottom: 10px;
+        height: calc(100% - 20px);
     }
     
-    .logo {
-        width: 85px;
-        height: 85px;
+    .logo:first-child {
+        left: 10px;
+    }
+    
+    .logo:last-child {
+        right: 10px;
     }
     
     .header-text {
-        margin: 0 15px;
+        margin: 0 130px;
     }
     
     .header-text h1 {
@@ -79,14 +92,23 @@ header {
 
 @media (max-width: 480px) {
     .header-with-logos {
+        display: flex;
         flex-direction: column;
         gap: 15px;
-        min-height: auto;
+        position: static;
     }
     
     .logo {
+        position: static;
         width: 70px;
         height: 70px;
+        aspect-ratio: auto;
+        margin: 0 auto;
+        transform: none;
+        top: auto;
+        bottom: auto;
+        left: auto;
+        right: auto;
     }
     
     .header-text {
@@ -117,6 +139,8 @@ header p {
 
 .navigation-links {
     margin-top: 20px;
+    position: relative;
+    z-index: 2;
 }
 
 .back-link {
@@ -240,6 +264,8 @@ main {
 /* Logout Section */
 .logout-section {
     margin-top: 15px;
+    position: relative;
+    z-index: 2;
 }
 
 .logout-section button {
