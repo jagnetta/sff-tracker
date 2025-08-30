@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Route Details - Taunton Food Drive</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Print-optimized styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background-color: #1a1a1a;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .print-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+        
+        
+        /* Print-efficient layout styles */
+        .print-efficient-container {
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .compact-header {
+            background: #2d2d2d;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        
+        .compact-info {
+            color: #e0e0e0;
+            font-size: 0.9em;
+            line-height: 1.3;
+        }
+        
+        .route-list {
+            margin-bottom: 15px;
+        }
+        
+        .route-item {
+            background: #2d2d2d;
+            margin-bottom: 8px;
+            padding: 8px;
+            border-radius: 4px;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        
+        .route-qr-code {
+            flex-shrink: 0;
+        }
+        
+        .route-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .route-header {
+            font-weight: bold;
+            color: #4a9eff;
+            margin-bottom: 4px;
+            font-size: 0.95em;
+        }
+        
+        .route-description {
+            font-size: 0.85em;
+            line-height: 1.3;
+            color: #e0e0e0;
+        }
+        
+        .compact-instructions {
+            background: #2d2d2d;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            line-height: 1.4;
+        }
+        
+        .instruction-line {
+            margin-bottom: 4px;
+            color: #e0e0e0;
+        }
+        
+        .instruction-line:last-child {
+            margin-bottom: 0;
+        }
+        
+        
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+                padding: 5px !important;
+                margin: 0 !important;
+                font-size: 12pt !important;
+                line-height: 1.3 !important;
+            }
+            
+            .print-container {
+                max-width: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .print-efficient-container {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .compact-header {
+                background: #f8f9fa !important;
+                border: 1px solid #ddd !important;
+                padding: 6px !important;
+                margin-bottom: 8px !important;
+                page-break-inside: avoid;
+            }
+            
+            .compact-info {
+                color: black !important;
+                font-size: 11pt !important;
+                line-height: 1.3 !important;
+            }
+            
+            .route-list {
+                margin-bottom: 8px !important;
+            }
+            
+            .route-item {
+                background: white !important;
+                border: 1px solid #ccc !important;
+                margin-bottom: 4px !important;
+                padding: 4px !important;
+                page-break-inside: avoid;
+                display: flex !important;
+                gap: 8px !important;
+                align-items: flex-start !important;
+            }
+            
+            .route-qr-code {
+                flex-shrink: 0 !important;
+            }
+            
+            .route-info {
+                flex: 1 !important;
+                min-width: 0 !important;
+            }
+            
+            .route-header {
+                color: black !important;
+                font-size: 11pt !important;
+                font-weight: bold !important;
+                margin-bottom: 2px !important;
+            }
+            
+            .route-description {
+                color: black !important;
+                font-size: 10pt !important;
+                line-height: 1.3 !important;
+            }
+            
+            .compact-instructions {
+                background: #f8f9fa !important;
+                border: 1px solid #ddd !important;
+                padding: 6px !important;
+                font-size: 10pt !important;
+                line-height: 1.3 !important;
+                page-break-inside: avoid;
+            }
+            
+            .instruction-line {
+                color: black !important;
+                margin-bottom: 2px !important;
+            }
+            
+            .instruction-line:last-child {
+                margin-bottom: 0 !important;
+            }
+            
+            .route-qr-code canvas,
+            .route-qr-code img {
+                border: 1px solid #000 !important;
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+            }
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="print-container">
+
+        <main>
+            <div class="print-efficient-container">
+                <!-- Compact Header with all key info in one line -->
+                <div class="compact-header">
+                    <div id="compactInfo" class="compact-info">
+                        <!-- Compact info will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Route Details - Most important content -->
+                <div id="routeDetails" class="route-list">
+                    <!-- Route details will be populated by JavaScript -->
+                </div>
+
+                <!-- Compact Instructions Footer -->
+                <div class="compact-instructions">
+                    <div class="instruction-line">
+                        <strong>Dates:</strong> Door Hangers Oct 25-26 (9AM-3PM) • Food Pickup Nov 1 (9AM-1PM)
+                    </div>
+                    <div class="instruction-line">
+                        <strong>Drop Off:</strong> Matthew Mission Food Pantry, 76 Church Green, Taunton, MA 02780
+                    </div>
+                    <div class="instruction-line">
+                        <strong>Route Notes:</strong> Pay attention to odd/even numbers and cross streets. "All" means both sides of street.
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+    </div>
+
+    <script src="data.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script>
+        // Same generateGoogleMapsUrl function as the main app
+        function generateGoogleMapsUrl(route) {
+            const description = route.description;
+            const segments = description.split(/ - All(?:\s*\/\/|$)/).map(s => s.trim()).filter(s => s.length > 0);
+            
+            if (segments.length === 0) {
+                return `https://www.google.com/maps/search/${encodeURIComponent(route.name + ' Taunton MA')}`;
+            }
+            
+            let waypoints = [];
+            segments.forEach(segment => {
+                let cleanSegment = segment.replace(/\([^)]+\)/g, '').trim();
+                waypoints.push(encodeURIComponent(cleanSegment + ', Taunton, MA'));
+            });
+            
+            if (waypoints.length === 1) {
+                return `https://www.google.com/maps/search/${waypoints[0]}`;
+            } else {
+                const origin = waypoints[0];
+                const destination = waypoints[waypoints.length - 1];
+                const intermediate = waypoints.slice(1, -1);
+                
+                let url = `https://www.google.com/maps/dir/${origin}`;
+                
+                if (intermediate.length > 0) {
+                    url += '/' + intermediate.join('/');
+                }
+                
+                if (waypoints.length > 1) {
+                    url += '/' + destination;
+                }
+                
+                return url;
+            }
+        }
+
+        // URL shortener function using TinyURL API
+        async function shortenUrl(longUrl) {
+            try {
+                const response = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`);
+                const shortUrl = await response.text();
+                
+                // Check if we got a valid TinyURL response
+                if (shortUrl.startsWith('https://tinyurl.com/')) {
+                    return shortUrl;
+                } else {
+                    console.warn('URL shortening failed, using original URL');
+                    return longUrl;
+                }
+            } catch (error) {
+                console.warn('URL shortening error:', error);
+                return longUrl; // Fallback to original URL
+            }
+        }
+
+        // Display route details
+        function displayRouteDetails(routes) {
+            const routeDetails = document.getElementById('routeDetails');
+            
+            if (!routes || routes.length === 0) {
+                routeDetails.innerHTML = '<p>No route details available.</p>';
+                return;
+            }
+            
+            const detailsHTML = routes.map((route, index) => {
+                const qrId = `qr-${route.routeId}-${index}`;
+                
+                return `
+                <div class="route-item">
+                    <div class="route-qr-code">
+                        <canvas id="${qrId}" width="100" height="100"></canvas>
+                    </div>
+                    <div class="route-info">
+                        <div class="route-header">Route ${route.routeId} - ${route.name} (${route.flyerCount} flyers)</div>
+                        <div class="route-description">${route.description}</div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+            
+            routeDetails.innerHTML = detailsHTML;
+            
+            // Generate QR codes asynchronously
+            generateQRCodes(routes);
+        }
+        
+        // Generate QR codes with URL shortening
+        async function generateQRCodes(routes) {
+            if (!routes || routes.length === 0) {
+                window.qrCodesReady = true;
+                return;
+            }
+            
+            console.log(`Generating QR codes for ${routes.length} routes...`);
+            window.qrCodesReady = false; // Reset flag
+            
+            // Check if QRCode library is available
+            if (typeof QRCode === 'undefined') {
+                console.log('QRCode library not available, using fallback API method');
+                // Fallback to external API method with URL shortening
+                for (let index = 0; index < routes.length; index++) {
+                    const route = routes[index];
+                    console.log(`Processing route ${index + 1}/${routes.length}: ${route.routeId}`);
+                    const longUrl = generateGoogleMapsUrl(route);
+                    const shortUrl = await shortenUrl(longUrl);
+                    const qrId = `qr-${route.routeId}-${index}`;
+                    const canvas = document.getElementById(qrId);
+                    const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&format=png&data=${encodeURIComponent(shortUrl)}`;
+                    
+                    if (canvas) {
+                        // Replace canvas with img element for fallback
+                        const img = document.createElement('img');
+                        img.src = qrApiUrl;
+                        img.width = 100;
+                        img.height = 100;
+                        img.alt = 'QR Code for Route Map';
+                        canvas.parentNode.replaceChild(img, canvas);
+                    }
+                }
+                console.log('All QR codes processed (API method)');
+                window.qrCodesReady = true; // Set ready flag after all are processed
+                return;
+            }
+            
+            // Generate QR codes using client-side library with URL shortening
+            for (let index = 0; index < routes.length; index++) {
+                const route = routes[index];
+                console.log(`Processing route ${index + 1}/${routes.length}: ${route.routeId}`);
+                const longUrl = generateGoogleMapsUrl(route);
+                const shortUrl = await shortenUrl(longUrl);
+                const qrId = `qr-${route.routeId}-${index}`;
+                const canvas = document.getElementById(qrId);
+                
+                if (canvas) {
+                    QRCode.toCanvas(canvas, shortUrl, {
+                        width: 100,
+                        height: 100,
+                        margin: 1,
+                        color: {
+                            dark: '#000000',
+                            light: '#FFFFFF'
+                        }
+                    }, function (error) {
+                        if (error) console.error('QR Code generation error:', error);
+                    });
+                }
+            }
+            console.log('All QR codes processed (client-side method)');
+            window.qrCodesReady = true; // Set ready flag after all are processed
+        }
+
+        // Display compact information
+        function displayCompactInfo(region, routes, userInfo) {
+            const compactInfo = document.getElementById('compactInfo');
+            const totalFlyers = routes.reduce((sum, route) => sum + route.flyerCount, 0);
+            const routeCount = routes.length;
+            
+            compactInfo.innerHTML = `
+                <strong>${userInfo.lastName}</strong> • ${userInfo.unit} • ${region} Region • ${routeCount} ${routeCount === 1 ? 'Route' : 'Routes'} • ${totalFlyers.toLocaleString()} Flyers • ${new Date().toLocaleDateString()}
+            `;
+        }
+
+        // Auto-print function that waits for QR codes
+        function autoPrint() {
+            console.log('Auto-print initiated, waiting for QR codes...');
+            
+            // Check if QR codes are ready
+            const checkReady = setInterval(() => {
+                if (window.qrCodesReady) {
+                    clearInterval(checkReady);
+                    console.log('QR codes ready, opening print dialog');
+                    setTimeout(() => {
+                        window.print();
+                    }, 500); // Small additional delay to ensure rendering is complete
+                }
+            }, 100);
+            
+            // Timeout fallback (in case something goes wrong)
+            setTimeout(() => {
+                clearInterval(checkReady);
+                console.log('Timeout reached, printing anyway');
+                window.print();
+            }, 15000); // 15 second timeout for URL shortening
+        }
+
+        // Load data from URL parameters or sessionStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                console.log('Print page loading...');
+                console.log('routeData available:', typeof routeData !== 'undefined');
+                
+                // Get data from URL parameters
+                const urlParams = new URLSearchParams(window.location.search);
+                const selectedRegion = urlParams.get('region');
+                const selectedRouteIds = urlParams.get('routes') ? JSON.parse(decodeURIComponent(urlParams.get('routes'))) : [];
+                const userInfo = urlParams.get('user') ? JSON.parse(decodeURIComponent(urlParams.get('user'))) : null;
+                
+                console.log('URL params - region:', selectedRegion, 'routes:', selectedRouteIds, 'user:', userInfo);
+                
+                // Fallback to sessionStorage if URL params not available
+                const region = selectedRegion || sessionStorage.getItem('selectedRegion');
+                const routeIds = selectedRouteIds.length > 0 ? selectedRouteIds : JSON.parse(sessionStorage.getItem('selectedRoutes') || '[]');
+                const user = userInfo || JSON.parse(sessionStorage.getItem('userInfo') || '{}');
+                
+                console.log('Final data - region:', region, 'routeIds:', routeIds, 'user:', user);
+                
+                if (!region || routeIds.length === 0) {
+                    console.log('Missing required data - region:', region, 'routeIds length:', routeIds.length);
+                    document.querySelector('main').innerHTML = '<div class="user-assignment-info"><h4>Error</h4><p>No route data found. Please select routes first.</p></div>';
+                    return;
+                }
+                
+                // Check if routeData is available
+                if (typeof routeData === 'undefined') {
+                    console.error('routeData is undefined');
+                    document.querySelector('main').innerHTML = '<div class="user-assignment-info"><h4>Error</h4><p>Route data not loaded. Please try refreshing the page.</p></div>';
+                    return;
+                }
+                
+                // Get route data for selected routes
+                const allRoutes = routeData[region] || [];
+                console.log('All routes for region:', allRoutes.length);
+                const selectedRoutes = allRoutes.filter(route => routeIds.includes(route.routeId));
+                console.log('Selected routes:', selectedRoutes.length);
+                
+                if (selectedRoutes.length === 0) {
+                    console.log('No routes found matching the selected IDs');
+                    document.querySelector('main').innerHTML = '<div class="user-assignment-info"><h4>Error</h4><p>Selected routes not found in data.</p></div>';
+                    return;
+                }
+                
+                // Display all the information in compact format
+                displayCompactInfo(region, selectedRoutes, user);
+                displayRouteDetails(selectedRoutes);
+                
+                // Auto-open print dialog after content is loaded
+                autoPrint();
+                
+            } catch (error) {
+                console.error('Error loading print page data:', error);
+                console.error('Error stack:', error.stack);
+                document.querySelector('main').innerHTML = '<div class="user-assignment-info"><h4>Error</h4><p>Failed to load route data: ' + error.message + '</p></div>';
+            }
+        });
+    </script>
+</body>
+</html>
