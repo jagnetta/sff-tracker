@@ -35,6 +35,16 @@
             padding: 10px;
             border-radius: 4px;
             margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .print-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            flex-shrink: 0;
         }
         
         .compact-info {
@@ -194,6 +204,18 @@
                 margin-bottom: 12px !important;
                 page-break-inside: avoid;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15) !important;
+                display: flex !important;
+                align-items: center !important;
+                gap: 10px !important;
+            }
+            
+            .print-logo {
+                width: 30px !important;
+                height: 30px !important;
+                border-radius: 50% !important;
+                flex-shrink: 0 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
             
             .compact-info {
@@ -412,6 +434,7 @@
             <div class="print-efficient-container">
                 <!-- Compact Header with all key info in one line -->
                 <div class="compact-header">
+                    <img src="images/scouting-for-food-logo.jpg" alt="Scouting for Food Logo" class="print-logo">
                     <div id="compactInfo" class="compact-info">
                         <!-- Compact info will be populated by JavaScript -->
                     </div>
