@@ -20,6 +20,16 @@ class ContextualHelp {
                         <li>Type <strong>The Password that was Provided</strong> for password</li>
                         <li>Click "Login"</li>
                     </ol>
+
+                    <h3>Current Drive Status Panel</h3>
+                    <p>Below the login form, you can view real-time statistics about the food drive:</p>
+                    <ul>
+                        <li><strong>Assigned Routes:</strong> Number of routes that have been claimed by scout units</li>
+                        <li><strong>Assigned Tags:</strong> Total number of door hangers (flyers) for all assigned routes</li>
+                        <li><strong>Participating Units:</strong> Number of different scout units that have signed up for routes</li>
+                        <li><strong>Available Routes:</strong> Number of routes still available for selection</li>
+                    </ul>
+                    <p>This panel helps you see the overall progress of the food drive sign-up process.</p>
                 `
             },
             'user-info.html': {
