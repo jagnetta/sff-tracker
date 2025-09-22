@@ -1,9 +1,12 @@
 // Main page JavaScript for region selection
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     // Check authentication first
     if (!checkAuthentication()) {
         return;
     }
+
+    // Load assignments first
+    await routeTracker.loadAssignments();
     
     // Check if user info is provided
     const userInfo = sessionStorage.getItem('userInfo');
@@ -119,9 +122,9 @@ function showExistingAssignments(routeIds, userInfo) {
     regionSelector.style.display = 'none';
 }
 
-function removeRouteFromAssignment(routeId) {
+async function removeRouteFromAssignment(routeId) {
     if (confirm('Are you sure you want to remove this route from your assignments?')) {
-        const removed = routeTracker.removeRouteAssignment(routeId);
+        const removed = await routeTracker.removeRouteAssignment(routeId);
         if (removed) {
             // Refresh the assignments display
             refreshAssignmentsDisplay();

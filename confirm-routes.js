@@ -1,9 +1,12 @@
 // Route confirmation page JavaScript
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     // Check authentication first
     if (!checkAuthentication()) {
         return;
     }
+
+    // Load assignments first
+    await routeTracker.loadAssignments();
     
     // Check if user info is provided
     const userInfo = sessionStorage.getItem('userInfo');
@@ -154,7 +157,7 @@ function cancelSelection() {
     history.back();
 }
 
-function confirmSelection() {
+async function confirmSelection() {
     const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
     const selectedRouteIds = JSON.parse(sessionStorage.getItem('selectedRoutes') || '[]');
     
@@ -168,13 +171,17 @@ function confirmSelection() {
     
     if (confirm(confirmMessage)) {
         // Assign routes to user
-        routeTracker.assignRoutes(selectedRouteIds, userInfo);
+        const assignment = await routeTracker.assignRoutes(selectedRouteIds, userInfo);
         
-        // Clear selection from session storage
-        sessionStorage.removeItem('selectedRoutes');
-        sessionStorage.removeItem('selectedRegion');
-        
-        // Redirect to success page
-        window.location.href = 'details.html?confirmed=true';
+        if (assignment) {
+            // Clear selection from session storage
+            sessionStorage.removeItem('selectedRoutes');
+            sessionStorage.removeItem('selectedRegion');
+            
+            // Redirect to success page
+            window.location.href = 'details.html?confirmed=true';
+        } else {
+            alert('There was an error confirming your route selection. Please try again.');
+        }
     }
 }

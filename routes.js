@@ -1,9 +1,12 @@
 // Routes page JavaScript for route selection
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     // Check authentication first
     if (!checkAuthentication()) {
         return;
     }
+
+    // Load assignments first
+    await routeTracker.loadAssignments();
     
     // Check if user info is provided
     const userInfo = sessionStorage.getItem('userInfo');

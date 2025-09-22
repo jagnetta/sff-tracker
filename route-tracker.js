@@ -1,61 +1,68 @@
 // Route assignment tracking system
 class RouteTracker {
     constructor() {
-        this.storageKey = 'routeAssignments';
-        this.assignments = this.loadAssignments();
+        this.assignments = {};
     }
-    
-    // Load existing assignments from localStorage
-    loadAssignments() {
+
+    // Load existing assignments from the server
+    async loadAssignments() {
         try {
-            const stored = localStorage.getItem(this.storageKey);
-            return stored ? JSON.parse(stored) : {};
+            const response = await fetch('/api/assignments');
+            if (!response.ok) {
+                throw new Error('Failed to load assignments from server');
+            }
+            const data = await response.json();
+            this.assignments = data.assignments || {};
         } catch (error) {
             console.error('Error loading route assignments:', error);
-            return {};
+            this.assignments = {};
         }
     }
-    
-    // Save assignments to localStorage
-    saveAssignments() {
-        try {
-            localStorage.setItem(this.storageKey, JSON.stringify(this.assignments));
-        } catch (error) {
-            console.error('Error saving route assignments:', error);
-        }
-    }
-    
-    // Check if a route is already assigned
-    isRouteAssigned(routeId) {
-        return this.assignments.hasOwnProperty(routeId);
-    }
-    
-    // Get assignment info for a route
-    getRouteAssignment(routeId) {
-        return this.assignments[routeId] || null;
-    }
-    
+
     // Assign routes to a user
-    assignRoutes(routeIds, userInfo) {
+    async assignRoutes(routeIds, userInfo) {
+        const newAssignments = {};
         const assignment = {
             lastName: userInfo.lastName,
             unit: userInfo.unit,
             timestamp: new Date().toISOString(),
-            routes: routeIds
         };
-        
-        // Assign each route
+
+        // Create a map of new assignments
         routeIds.forEach(routeId => {
-            this.assignments[routeId] = {
-                ...assignment,
-                routes: undefined // Don't store the full array for each route
-            };
+            newAssignments[routeId] = assignment;
         });
-        
-        this.saveAssignments();
-        return assignment;
+
+        try {
+            const response = await fetch('/api/assignments', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newAssignments),
+            });
+            if (!response.ok) {
+                throw new Error('Failed to save assignments to server');
+            }
+            // Update local assignments
+            Object.assign(this.assignments, newAssignments);
+            return { ...assignment, routes: routeIds };
+        } catch (error) {
+            console.error('Error saving route assignments:', error);
+            return null;
+        }
     }
-    
+
+    // Check if a route is already assigned
+    isRouteAssigned(routeId) {
+        return this.assignments.hasOwnProperty(routeId);
+    }
+
+    // Get assignment info for a route
+    getRouteAssignment(routeId) {
+        return this.assignments[routeId] || null;
+    }
+
     // Get all assignments for a specific user
     getUserAssignments(lastName, unit) {
         const userRoutes = [];
@@ -67,52 +74,71 @@ class RouteTracker {
         });
         return userRoutes;
     }
-    
+
     // Get all available routes for a region (not assigned)
     getAvailableRoutes(region) {
         const allRoutes = routeData[region] || [];
         return allRoutes.filter(route => !this.isRouteAssigned(route.routeId));
     }
-    
+
     // Get statistics about assignments
     getAssignmentStats() {
         const totalAssignments = Object.keys(this.assignments).length;
         const units = {};
-        
+
         Object.values(this.assignments).forEach(assignment => {
             if (!units[assignment.unit]) {
                 units[assignment.unit] = 0;
             }
             units[assignment.unit]++;
         });
-        
+
         return {
             totalAssignments,
             unitBreakdown: units
         };
     }
-    
+
     // Remove a single route assignment
-    removeRouteAssignment(routeId) {
+    async removeRouteAssignment(routeId) {
         if (this.assignments[routeId]) {
-            delete this.assignments[routeId];
-            this.saveAssignments();
-            return true;
+            try {
+                const response = await fetch(`/api/assignments/${routeId}`, {
+                    method: 'DELETE',
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to delete assignment on server');
+                }
+                delete this.assignments[routeId];
+                return true;
+            } catch (error) {
+                console.error('Error deleting route assignment:', error);
+                return false;
+            }
         }
         return false;
     }
-    
+
     // Clear all assignments (admin function)
-    clearAllAssignments() {
-        this.assignments = {};
-        this.saveAssignments();
+    async clearAllAssignments() {
+        try {
+            const response = await fetch('/api/assignments/clear', {
+                method: 'POST',
+            });
+            if (!response.ok) {
+                throw new Error('Failed to clear assignments on server');
+            }
+            this.assignments = {};
+        } catch (error) {
+            console.error('Error clearing all assignments:', error);
+        }
     }
-    
+
     // Export assignments as text
     exportAssignments() {
-        let export_text = 'ROUTE ASSIGNMENTS EXPORT\\n';
-        export_text += '================================\\n\\n';
-        
+        let export_text = 'ROUTE ASSIGNMENTS EXPORT\n';
+        export_text += '================================\n\n';
+
         const assignments = {};
         Object.keys(this.assignments).forEach(routeId => {
             const assignment = this.assignments[routeId];
@@ -122,24 +148,24 @@ class RouteTracker {
             }
             assignments[key].push(routeId);
         });
-        
+
         Object.keys(assignments).sort().forEach(assignee => {
-            export_text += `${assignee}:\\n`;
+            export_text += `${assignee}:\n`;
             assignments[assignee].sort().forEach(routeId => {
                 const route = this.findRouteById(routeId);
                 if (route) {
-                    export_text += `  - ${routeId}: ${route.name} (${route.flyerCount} flyers)\\n`;
+                    export_text += `  - ${routeId}: ${route.name} (${route.flyerCount} flyers)\n`;
                 }
             });
-            export_text += '\\n';
+            export_text += '\n';
         });
-        
-        export_text += `\\nTotal Routes Assigned: ${Object.keys(this.assignments).length}\\n`;
-        export_text += `Export Generated: ${new Date().toLocaleString()}\\n`;
-        
+
+        export_text += `\nTotal Routes Assigned: ${Object.keys(this.assignments).length}\n`;
+        export_text += `Export Generated: ${new Date().toLocaleString()}\n`;
+
         return export_text;
     }
-    
+
     // Helper function to find route by ID across all regions
     findRouteById(routeId) {
         for (const region in routeData) {
