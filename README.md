@@ -71,6 +71,8 @@ The Taunton Scouting for Food Drive Route Selector processes route data from a C
 ### Complete File Structure
 ```
 sff-tracker/
+├── server.js               # Node.js Express server and API
+├── database.json           # Persistent data storage for assignments
 ├── index.html              # Authentication router and main entry point
 ├── login.html              # Dual login form (volunteer/admin)
 ├── user-info.html          # User information collection (volunteers only)
@@ -85,24 +87,25 @@ sff-tracker/
 ├── auth.js                 # Authentication and session management
 ├── user-info.js            # User information collection logic
 ├── data.js                 # Static route data organized by regions
-├── route-tracker.js        # Assignment tracking and persistence system
+├── route-tracker.js        # Client-side assignment tracking and API communication
 ├── main.js                 # Home page and assignment display logic
 ├── routes.js               # Route selection and filtering logic
 ├── confirm-routes.js       # Confirmation page functionality
 ├── details.js              # Assignment details and print functionality
 ├── admin-dashboard.js      # Complete admin dashboard functionality
-├── CLAUDE.md               # Developer guidance for Claude Code
+├── GEMINI.md               # Developer guidance for Gemini Code
 └── README.md               # This comprehensive documentation
 ```
 
 ### Data Management Architecture
 
 #### Route Assignment Tracking
-- **RouteTracker Class**: Centralized assignment management using localStorage
-- **Persistent Storage**: Route assignments survive browser restarts and are shared across users
-- **Assignment Prevention**: Routes assigned to one user are automatically hidden from others
-- **User Identification**: Tracks assignments by Last Name + Unit combination
-- **Assignment Removal**: Users can remove their own assignments, immediately making routes available to others
+- **Node.js Backend**: An Express.js server handles all data persistence.
+- **`RouteTracker` Class**: A client-side class that communicates with the backend API to manage assignments.
+- **Persistent Storage**: Route assignments are stored in `database.json` on the server, ensuring data is shared across all users and sessions.
+- **Assignment Prevention**: The backend logic prevents routes assigned to one user from being available to others.
+- **User Identification**: Tracks assignments by Last Name + Unit combination.
+- **Assignment Removal**: Users can remove their own assignments, which sends a request to the server to make the route available again.
 
 #### Data Structure
 Routes are structured as:
@@ -127,50 +130,64 @@ Assignments track:
 ### State Management & Flow Control
 
 #### Authentication Flow
-1. **Entry Point**: `index.html` routes users based on authentication status
-2. **Login Required**: Unauthenticated users directed to `login.html`
-3. **Role-Based Routing**: 
+1. **Entry Point**: `index.html` routes users based on authentication status stored in `sessionStorage`.
+2. **Login Required**: Unauthenticated users are directed to `login.html`.
+3. **Role-Based Routing**:
    - Regular users: Login → User Info → Route Selection
    - Admin users: Login → Admin Dashboard
 
 #### Assignment Flow (Regular Users)
-1. **User Information**: Collect Last Name and Unit (`user-info.html`)
-2. **Home Page**: Display existing assignments or region selection (`home.html`)
-3. **Route Selection**: Choose available routes by region (`routes.html`)
-4. **Confirmation**: Review and confirm selections (`confirm-routes.html`)
-5. **Completion**: Final assignment details with print option (`details.html`)
+1. **User Information**: Collect Last Name and Unit (`user-info.html`), stored in `sessionStorage`.
+2. **Home Page**: Display existing assignments (fetched from the server) or region selection (`home.html`).
+3. **Route Selection**: Choose available routes by region (`routes.html`).
+4. **Confirmation**: Review and confirm selections (`confirm-routes.html`).
+5. **Completion**: Final assignment details with print option (`details.html`).
 
 #### Session & Storage Management
-- **sessionStorage**: User authentication, current session data (cleared on browser close)
-- **localStorage**: Route assignments, persistent across sessions and users
-- **Cross-User Visibility**: Assignments made by one user immediately visible to others
+- **`sessionStorage`**: Used for user authentication status and user information for the current session.
+- **`database.json`**: A file on the server that provides persistent storage for all route assignments.
 
 ### Security & Data Integrity
 
 #### Access Control
-- **Hardcoded Credentials**: Suitable for small organizational use with known users
-- **Session-Based Security**: Authentication status tracked per browser session
-- **Role Separation**: Complete separation between volunteer and admin interfaces
-- **Input Validation**: All form inputs validated with user feedback
+- **Hardcoded Credentials**: Suitable for small organizational use with known users.
+- **Session-Based Security**: Authentication status is tracked per browser session.
+- **Role Separation**: Complete separation between volunteer and admin interfaces.
 
 #### Data Persistence
-- **Client-Side Storage**: No server required, all data stored in browser
-- **Assignment Integrity**: Route assignments cannot be double-booked
-- **Data Recovery**: Admin interface allows correction of assignment errors
-- **Export Capability**: Complete data export for backup and external use
+- **Server-Side Storage**: All route assignment data is stored on the server in `database.json`.
+- **API Endpoints**: The server provides API endpoints to ensure controlled access and modification of the data.
+- **Assignment Integrity**: The backend logic prevents double-booking of routes.
+- **Data Recovery**: The admin interface allows for the correction of assignment errors.
+- **Export Capability**: Complete data export for backup and external use.
 
 ## Installation & Setup
 
 ### Requirements
-- **Modern Web Browser**: Chrome 60+, Firefox 55+, Safari 12+, Edge 79+
-- **JavaScript Enabled**: ES6 support required
-- **Local Storage**: Must be enabled for route assignment tracking
+- **Node.js**: Required to run the server.
+- **Modern Web Browser**: Chrome, Firefox, Safari, Edge, etc.
 
 ### Installation
-No installation or build process required:
-1. Download or clone the repository
-2. Open `index.html` in any modern web browser
-3. The application runs entirely client-side
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   ```
+2. **Navigate to the project directory:**
+   ```bash
+   cd sff-tracker
+   ```
+3. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+### Running the Application
+1. **Start the server:**
+   ```bash
+   npm start
+   ```
+2. **Access the application:**
+   Open your web browser and navigate to `http://localhost:3000`.
 
 ## Usage Instructions
 

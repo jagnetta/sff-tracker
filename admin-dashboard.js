@@ -2,7 +2,7 @@
 let allRoutesData = [];
 let filteredRoutesData = [];
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     // Check if user is authenticated as admin
     const isAdmin = sessionStorage.getItem('isAdmin');
     if (isAdmin !== 'true') {
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Load and display dashboard data
-    loadDashboardData();
+    await loadDashboardData();
     
     // Set up event listeners
     setupEventListeners();
@@ -23,7 +23,10 @@ function setupEventListeners() {
     document.getElementById('searchFilter').addEventListener('input', applyFilters);
 }
 
-function loadDashboardData() {
+async function loadDashboardData() {
+    // Load assignments first
+    await routeTracker.loadAssignments();
+
     // Compile all routes from all regions
     allRoutesData = [];
     
@@ -135,7 +138,7 @@ function applyFilters() {
     displayRoutesTable();
 }
 
-function resetRoute(routeId) {
+async function resetRoute(routeId) {
     const route = allRoutesData.find(r => r.routeId === routeId);
     if (!route || route.status !== 'assigned') {
         alert('Route is not assigned or not found.');
@@ -146,21 +149,19 @@ function resetRoute(routeId) {
     
     if (confirm(confirmMessage)) {
         // Remove assignment from route tracker
-        if (routeTracker.assignments[routeId]) {
-            delete routeTracker.assignments[routeId];
-            routeTracker.saveAssignments();
-            
+        const success = await routeTracker.removeRouteAssignment(routeId);
+        
+        if (success) {
             // Reload dashboard data
-            loadDashboardData();
-            
+            await loadDashboardData();
             alert(`Route ${routeId} has been reset and is now available for selection.`);
         } else {
-            alert('Error: Assignment not found.');
+            alert('Error: Assignment not found or could not be removed.');
         }
     }
 }
 
-function clearAllAssignments() {
+async function clearAllAssignments() {
     const assignedCount = allRoutesData.filter(route => route.status === 'assigned').length;
     
     if (assignedCount === 0) {
@@ -173,8 +174,8 @@ function clearAllAssignments() {
     const userInput = prompt(confirmMessage);
     
     if (userInput === 'CLEAR ALL') {
-        routeTracker.clearAllAssignments();
-        loadDashboardData();
+        await routeTracker.clearAllAssignments();
+        await loadDashboardData();
         alert('All route assignments have been cleared.');
     } else {
         alert('Clear operation cancelled.');
