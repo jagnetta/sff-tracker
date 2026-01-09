@@ -73,7 +73,8 @@ The Taunton Scouting for Food Drive Route Selector processes route data from a C
 sff-tracker/
 ├── server.js               # Node.js Express server and API
 ├── database.json           # Persistent data storage for assignments
-├── index.html              # Authentication router and main entry point
+├── index.html              # Authentication router and main entry point (active drive)
+├── index_thankyou.html     # Thank you page with drive results (between drives)
 ├── login.html              # Dual login form (volunteer/admin)
 ├── user-info.html          # User information collection (volunteers only)
 ├── home.html               # Region selection with existing assignments display
@@ -188,6 +189,28 @@ Assignments track:
    ```
 2. **Access the application:**
    Open your web browser and navigate to `http://localhost:3000`.
+
+### Drive Phase Management
+The application supports two operational modes:
+
+**Active Drive Mode** (during the drive):
+- Entry point: `index.html`
+- Provides full authentication and route assignment functionality
+- Users can select routes, view assignments, and print route details
+
+**Thank You Mode** (between drives):
+- Entry point: `index_thankyou.html`
+- Displays gratitude message to Scouts and donors
+- Shows drive results with no login required:
+  - Total Routes Completed
+  - Total Flyers Distributed
+  - Participating Units
+  - Coverage Achieved (percentage)
+- Reads from same localStorage data as active mode
+
+**Switching Between Modes**:
+1. When drive concludes: Rename `index.html` → `index_active.html`, then `index_thankyou.html` → `index.html`
+2. When new drive starts: Rename `index.html` → `index_thankyou.html`, then `index_active.html` → `index.html`
 
 ## Usage Instructions
 

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - Taunton Scouting for Food Drive</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-with-logos">
+                <img src="images/scouting-for-food-logo.jpg" alt="Scouting for Food Logo" class="logo">
+                <div class="header-text">
+                    <h1>Taunton Scouting for Food Drive</h1>
+                    <p>Thank you for your support!</p>
+                </div>
+                <img src="images/scouting-for-food-logo.jpg" alt="Scouting for Food Logo" class="logo">
+            </div>
+        </header>
+
+        <main>
+            <div class="thank-you-container">
+                <h2>Thank You!</h2>
+                <div class="thank-you-message">
+                    <p>The Taunton Scouting for Food Drive has concluded for this year.</p>
+                    <p>We extend our heartfelt gratitude to all the Scouts who worked tirelessly to distribute flyers, collect donations, and serve our community with dedication and enthusiasm.</p>
+                    <p>A special thank you to all the generous donors who opened their hearts and homes to support those in need. Your contributions make a real difference in the lives of families throughout our community.</p>
+                    <p>Together, we've made this drive a tremendous success!</p>
+                    <p class="return-message">The drive will return in a few months. Check back here for updates!</p>
+                </div>
+            </div>
+        </main>
+
+        <div id="driveResults" class="login-stats">
+            <div class="login-stats-header">
+                <h3>Drive Results</h3>
+            </div>
+            <div class="login-stats-grid">
+                <div class="login-stat">
+                    <div class="stat-number" id="totalRoutes">0</div>
+                    <div class="stat-description">Total Routes Completed</div>
+                </div>
+                <div class="login-stat">
+                    <div class="stat-number" id="totalTags">0</div>
+                    <div class="stat-description">Total Flyers Distributed</div>
+                </div>
+                <div class="login-stat">
+                    <div class="stat-number" id="activeUnits">0</div>
+                    <div class="stat-description">Participating Units</div>
+                </div>
+                <div class="login-stat">
+                    <div class="stat-number" id="coveragePercent">0%</div>
+                    <div class="stat-description">Coverage Achieved</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p style="text-align: center; margin-bottom: 5px;">Taunton Scouting for Food Drive</p>
+            <p style="text-align: center; margin-top: 0;">scoutingforfoodtaunton.duckdns.org</p>
+        </footer>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="route-tracker.js"></script>
+    <script>
+        // Load and display drive results
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDriveResults();
+        });
+
+        function loadDriveResults() {
+            // Compile all routes from all regions
+            let allRoutesData = [];
+
+            Object.keys(routeData).forEach(region => {
+                routeData[region].forEach(route => {
+                    const assignment = routeTracker.getRouteAssignment(route.routeId);
+                    allRoutesData.push({
+                        ...route,
+                        status: assignment ? 'assigned' : 'available',
+                        assignmentData: assignment
+                    });
+                });
+            });
+
+            // Calculate statistics
+            const assignedRoutes = allRoutesData.filter(route => route.status === 'assigned');
+            const totalRoutes = allRoutesData.length;
+
+            // Get unique units and calculate total tags
+            const units = new Set();
+            let totalTags = 0;
+
+            assignedRoutes.forEach(route => {
+                if (route.assignmentData) {
+                    units.add(route.assignmentData.unit);
+                }
+            });
+
+            // Calculate total assigned tags (flyers) for assigned routes only
+            assignedRoutes.forEach(route => {
+                totalTags += route.flyerCount;
+            });
+
+            // Calculate coverage percentage
+            const coveragePercent = totalRoutes > 0
+                ? Math.round((assignedRoutes.length / totalRoutes) * 100)
+                : 0;
+
+            // Update display
+            document.getElementById('totalRoutes').textContent = assignedRoutes.length;
+            document.getElementById('totalTags').textContent = totalTags.toLocaleString();
+            document.getElementById('activeUnits').textContent = units.size;
+            document.getElementById('coveragePercent').textContent = coveragePercent + '%';
+        }
+    </script>
+</body>
+</html>

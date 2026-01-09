@@ -216,6 +216,55 @@ main {
     font-size: 1.8em;
 }
 
+/* Thank You Container Styles */
+.thank-you-container {
+    background: #2d2d2d;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+}
+
+.thank-you-container h2 {
+    color: #4a9eff;
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+.thank-you-message {
+    text-align: left;
+    line-height: 1.8;
+}
+
+.thank-you-message p {
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    color: #d0d0d0;
+}
+
+.thank-you-message .return-message {
+    margin-top: 30px;
+    padding: 15px;
+    background: #3a3a3a;
+    border-radius: 5px;
+    border-left: 4px solid #4a9eff;
+    font-weight: 600;
+    color: #4a9eff;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .thank-you-container {
+        padding: 30px 20px;
+    }
+
+    .thank-you-message p {
+        font-size: 1em;
+    }
+}
+
 .form-group {
     margin-bottom: 20px;
     text-align: left;
