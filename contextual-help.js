@@ -152,8 +152,8 @@ class ContextualHelp {
                     <div class="important-dates">
                         <h3>Important Dates to Remember</h3>
                         <ul>
-                            <li><strong>Put door hangers on houses:</strong> Oct. 25-26th from 9 AM to 3 PM</li>
-                            <li><strong>Pick up food bags:</strong> Saturday, November 1st from 9 AM to 1 PM</li>
+                            <li><strong>Put door hangers on houses:</strong> Sat., Oct. 31st from 9 AM to 3 PM</li>
+                            <li><strong>Pick up food bags:</strong> Saturday, November 7th from 9 AM to 1 PM</li>
                             <li><strong>Bring food to:</strong> The Matthew Mission Food Pantry at 76 Church Green, Taunton, MA 02780</li>
                         </ul>
                     </div>
@@ -161,8 +161,8 @@ class ContextualHelp {
                     <h4>What Happens Next</h4>
                     <ol>
                         <li>Get your door hangars from your Unit Leaders</li>
-                        <li>On October 25th or 26th, put door hangers on doors</li>
-                        <li>On November 1st, go back to the same houses</li>
+                        <li>On October 31st, put door hangers on doors</li>
+                        <li>On November 7th, go back to the same houses</li>
                         <li>Pick up the food bags people left out</li>
                         <li>Take all the food to 76 Church Green, Taunton</li>
                     </ol>

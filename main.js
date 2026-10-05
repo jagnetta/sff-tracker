@@ -83,8 +83,8 @@ function showExistingAssignments(routeIds, userInfo) {
         </div>
         <div class="user-assignment-info">
             <h3>Important Dates & Instructions</h3>
-            <p><strong>Door Hanger Distribution:</strong> Oct. 25-26th from 9 AM to 3 PM</p>
-            <p><strong>Food Pickup:</strong> Sat., Nov. 1st from 9 AM to 1 PM</p>
+            <p><strong>Door Hanger Distribution:</strong> Sat., Oct. 31st from 9 AM to 3 PM</p>
+            <p><strong>Food Pickup:</strong> Sat., Nov. 7th from 9 AM to 1 PM</p>
             <p><strong>Food Drop Off Location:</strong> The Matthew Mission Food Pantry at 76 Church Green, Taunton, MA 02780</p>
         </div>
         <div class="assignments-by-region">

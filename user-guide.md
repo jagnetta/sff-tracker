@@ -11,8 +11,8 @@ You need to know:
 - Your scout unit (like Troop 40, Pack 49)
 
 ## Important Dates to Remember
-- **Put door hangers on houses:** Oct. 25-26th from 9 AM to 3 PM
-- **Pick up food bags:** Saturday, November 1st from 9 AM to 1 PM
+- **Put door hangers on houses:** Sat., Oct. 31st from 9 AM to 3 PM
+- **Pick up food bags:** Saturday, November 7th from 9 AM to 1 PM
 - **Bring food to:** The Matthew Mission Food Pantry at 76 Church Green, Taunton, MA 02780
 
 ## Step-by-Step Instructions
@@ -113,12 +113,12 @@ You need to know:
 3. Print your routes and keep the paper safe
 4. Use the QR codes on your printed routes to get instant directions on your phone
 5. Scan QR codes with your phone's camera - no special app needed
-6. Remember both important dates - October 25-26th and November 1st
+6. Remember both important dates - October 31st and November 7th
 
 ## What Happens Next
 1. Get your door hangars from your Unit Leaders
-1. On October 25th or 26th, put door hangers on doors
-3. On November 1st, go back to the same houses
+1. On October 31st, put door hangers on doors
+3. On November 7th, go back to the same houses
 4. Pick up the food bags people left out
 5. Take all the food to 76 Church Green, Taunton
 
