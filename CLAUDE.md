@@ -4,7 +4,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Running the Application
 
-This is a client-side only web application - simply open `index.html` in any modern web browser. No build process, server, or package installation required.
+This is a client-server web application. The Express server (`server.js`) serves the static files and exposes a small JSON-file-backed API (`database.json`) for route assignments.
+
+```
+npm install
+npm start
+```
+
+Then open `http://localhost:3000` in a browser. The server listens on port 3000 (hardcoded in `server.js`).
+
+### Public Access (DuckDNS)
+
+The app is exposed externally via [DuckDNS](https://www.duckdns.org), logged in via the `jagnetta3` Google account. The DuckDNS domain's IP must be kept pointed at the router's current public IP address for external access to work.
 
 ## Authentication System
 
@@ -19,14 +30,14 @@ Admin users go directly to: Login → Admin Dashboard
 
 ### Data Flow and Storage
 - **Route data**: Static data in `data.js` organized by 6 regions (CENTER, WEIR, OAKLAND, WHITTENTON, EAST TAUNTON, WESTVILLE)
-- **Route assignments**: Stored in browser localStorage via `RouteTracker` class for persistence across sessions
+- **Route assignments**: Persisted server-side in `database.json`, accessed via the Express API in `server.js` (`/api/assignments`) through the `RouteTracker` class
 - **User session**: Stored in sessionStorage (cleared when browser closes)
 - **Authentication state**: Tracked in sessionStorage with `authenticated` and `isAdmin` flags
 
 ### Key Components
 
 **RouteTracker Class** (`route-tracker.js`): 
-- Central assignment management using localStorage
+- Central assignment management, calling the `server.js` API (`/api/assignments`) which reads/writes `database.json`
 - Prevents double-booking by filtering out assigned routes
 - Provides methods for assignment, reset, and data export
 - Global instance available as `routeTracker`
@@ -156,4 +167,4 @@ When working with `print-routes.html`:
 
 ## Security Notes
 
-This is a client-side application with hardcoded credentials suitable for small organizational use. All data persistence uses browser storage (localStorage for assignments, sessionStorage for current session).
+This application has hardcoded credentials suitable for small organizational use. Route assignments persist server-side in `database.json` via the Express API; user session/auth state uses sessionStorage (browser-local, cleared on close).
